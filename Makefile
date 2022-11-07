@@ -6,7 +6,7 @@
 #    By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/22 16:11:34 by prafael-          #+#    #+#              #
-#    Updated: 2022/11/03 17:03:56 by llima-ce         ###   ########.fr        #
+#    Updated: 2022/11/07 12:06:36 by llima-ce         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,5 +57,8 @@ teste: all
 
 valgrind: all
 	$(NAME) "./assets/maps/map_3.ber" 
-	
+
+test: re
+	./so_long
+
 .PHONY: all clean teste valgrind fclean re
