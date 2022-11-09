@@ -6,11 +6,11 @@
 #    By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/22 16:11:34 by prafael-          #+#    #+#              #
-#    Updated: 2022/11/07 12:06:36 by llima-ce         ###   ########.fr        #
+#    Updated: 2022/11/09 17:19:00 by llima-ce         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = so_long
+NAME = cub3d
 
 CFLAGS = -Wall -Wextra -Werror
 
@@ -20,7 +20,7 @@ LIBFT = ./libft/libft.a
 
 MINILIBX = ./minilibx/libmlx_Linux.a
 
-SRC =	main.c
+SRC =	main.c read_map.c error.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -52,13 +52,8 @@ fclean: clean
 
 re: fclean all
 
-teste: all
-	$(NAME) "./assets/maps/map_3.ber"
-
-valgrind: all
-	$(NAME) "./assets/maps/map_3.ber" 
 
 test: re
-	./so_long
+	./cub3d map.cub
 
 .PHONY: all clean teste valgrind fclean re

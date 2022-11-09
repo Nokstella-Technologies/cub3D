@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 17:22:02 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/11/07 12:57:11 by llima-ce         ###   ########.fr       */
+/*   Updated: 2022/11/09 17:24:42 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef CUB_H
+# define CUB_H
 
 # include <stdio.h>
 # include <stdlib.h>
 # include <math.h>
+# include <fcntl.h>
+# include <unistd.h>
 # include "libft/libft.h"
 # include "minilibx/mlx.h"
 
@@ -24,17 +26,58 @@ typedef struct	s_vars {
 	void	*win;
 }				t_vars;
 
-typedef struct	s_data {
+typedef struct	s_pixel {
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-}				t_data;
+}				t_pixel;
+
+typedef struct s_map {
+	char	*no;
+	char	*so;
+	char	*we;
+	char	*ea;
+	int		floor_c[3];
+	int		celing_c[3];
+	char	**map;
+	int		mapX;
+	int		mapY;
+}			t_map;
+
+typedef struct	s_game {
+	t_vars	*vars;
+	t_map	*cmap;
+}			t_game;
 
 
 char map[5][5] = {"11111","10001","10N01", "10001", "11111"};
 #define MAP_WIDTH 64
 #define SPRINT_MINIMAP "./textures/minimap.xpm"
+
+# define X_EVENT_KEY_PRESS 2
+# define X_EVENT_DESTROY_NOTIFY 17
+# define X_EVENT_FOCUS_IN 9
+
+# define KEY_ESC 65307
+# define KEY_Q 113
+
+# define KEY_W 119
+# define KEY_A 97
+# define KEY_S 115
+# define KEY_D 100
+
+# define KEY_UP 65362
+# define KEY_LEFT 65361
+# define KEY_DOWN 65364
+# define KEY_RIGHT 65363
+#define PI 3.1415926535
+
+
+
+t_game	*read_map(char **argv);
+int		custom_error(char *error, int err);
+void	free_ptr(void **ptr);
 
 #endif
