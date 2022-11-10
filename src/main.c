@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:48:29 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/11/09 17:21:47 by llima-ce         ###   ########.fr       */
+/*   Updated: 2022/11/09 17:31:39 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,9 @@ int	main(int argc,char **argv)
 	// t_vars	vars;
 	// t_data	img;
 	
-	if(argc == 1) {
+	if(argc == 2) {
 		game = read_map(argv);
+		(void)argv;
 		(void)game;
 		// vars.mlx = mlx_init();
 		// vars.win = mlx_new_window(vars.mlx, 800, 600, "Hello world!");

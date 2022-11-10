@@ -6,13 +6,13 @@
 #    By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/22 16:11:34 by prafael-          #+#    #+#              #
-#    Updated: 2022/11/09 17:19:00 by llima-ce         ###   ########.fr        #
+#    Updated: 2022/11/09 17:27:33 by llima-ce         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g3
 
 CC = gcc
 
@@ -29,7 +29,7 @@ DIROBJ = ./obj/
 all: $(NAME)
 
 $(NAME): $(addprefix $(DIROBJ), $(OBJ)) $(LIBFT) $(MINILIBX)
-	$(CC) $(addprefix $(DIROBJ),$(OBJ)) $(CFLAGS) -I . -g3 -Lmlx_Linux -lmlx_Linux -L ./minilibx -Imlx_Linux -L ./libft -lft -lXext -lX11 -lm -lz -o $(NAME)
+	$(CC) $(addprefix $(DIROBJ),$(OBJ)) $(CFLAGS) -I .  -Lmlx_Linux -lmlx_Linux -L ./minilibx -Imlx_Linux -L ./libft -lft -lXext -lX11 -lm -lz -o  $(NAME)
 
 $(DIROBJ):
 	mkdir -p $(DIROBJ)
