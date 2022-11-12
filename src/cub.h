@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 17:22:02 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/11/09 17:40:12 by llima-ce         ###   ########.fr       */
+/*   Updated: 2022/11/12 11:32:16 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ typedef struct s_map {
 	int		floor_c[3];
 	int		celing_c[3];
 	char	**map;
-	int		mapX;
-	int		mapY;
+	int		map_x;
+	int		map_y;
 }			t_map;
 
 typedef struct	s_game {
@@ -76,10 +76,15 @@ typedef struct	s_game {
 #define PI 3.1415926535
 
 
+// # define FD_ERR "File not found"
+// # define ML_ERR "Malloc error"
+
+
 
 t_game	*read_map(char **argv);
 int		custom_error(char *error, int err);
 void	free_ptr(void **ptr);
 void	*clean_map(t_map *map, int a);
+int		verify_sprite_color(char *line, t_map *map);
 
 #endif
