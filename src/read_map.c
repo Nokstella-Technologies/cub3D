@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:46:08 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/11/28 17:23:12 by llima-ce         ###   ########.fr       */
+/*   Updated: 2022/11/28 19:14:26 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,41 @@ static int	add_new_line(t_map *cmap, char *line)
 	return (0);
 }
 
+static void	map_game(t_game *game)
+{
+	game->err = 0;
+	game->cmap->ea = NULL;
+	game->cmap->no = NULL;
+	game->cmap->so = NULL;
+	game->cmap->we = NULL;
+	game->cmap->map_x = 0;
+	game->cmap->map_y = 0;
+	game->cmap->map = NULL;
+	game->cmap->celing_c[0] = -1;
+	game->cmap->celing_c[1] = -1;
+	game->cmap->celing_c[2] = -1;
+	game->cmap->floor_c[0] = -1;
+	game->cmap->floor_c[1] = -1;
+	game->cmap->floor_c[2] = -1;
+}
+
 int	validation_loop(int fd, t_game *game)
 {
 	char	*tmp;
+	int		err;
 
 	tmp = get_next_line(fd);
-	game->cmap->map_x = 0;
-	game->cmap->map = NULL;
-	game->cmap->map_y = 0;
 	while(tmp != NULL)
 	{
 		if (game->err != 0)
 			break ;
 		if (*tmp != '\n')
 		{
-			if (verify_sprite_color(tmp, game->cmap) == 0)
+			err = verify_sprite_color(tmp, game->cmap);
+			if (err == 0)
 				game->err = add_new_line(game->cmap, tmp);
+			else if (err != 1)
+				game->err = custom_error(tmp, err);
 		}
 		free_ptr((void **)&tmp);
 		tmp = get_next_line(fd);
@@ -58,20 +77,32 @@ int	validation_loop(int fd, t_game *game)
 	return (game->err);
 }
 
+static void	verify_extension(char *file)
+{
+	char	*tmp;
+
+	tmp = ft_strrchr(file, '.');
+	if (tmp != NULL && ft_strncmp(tmp, ".cub", 5) == 0)
+		return ;
+	exit(custom_error("file extension wrong", 500));
+}
+
 t_game	*read_map(char **argv)
 {
 	t_game	*game;
 	int		fd;
 
+	verify_extension(argv[1]);
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
-		exit(custom_error("erro de fd", 1));
+		exit(custom_error("On open map file", FD_ERR));
 	game = (t_game *)malloc(1 * sizeof(t_game));
 	game->cmap = (t_map *)malloc(1 * sizeof(t_map));
+	map_game(game);
 	if (game == NULL || game->cmap == NULL)
-		exit(custom_error("erro de malloc", 1));
+		exit(custom_error("On malloc map and game", MALLOC_ERR));
 	game->err = validation_loop(fd, game);
 	if (game->err != 0)
-		return(NULL);
+		exit(1);
 	return (game);
 }

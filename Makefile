@@ -6,7 +6,7 @@
 #    By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/22 16:11:34 by prafael-          #+#    #+#              #
-#    Updated: 2022/11/28 17:53:22 by llima-ce         ###   ########.fr        #
+#    Updated: 2022/11/28 18:55:55 by llima-ce         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,16 +26,18 @@ OBJ = $(SRC:.c=.o)
 
 DIROBJ = ./obj/
 
+SANITIZE = -fsanitize=address -fsanitize=undefined -fno-sanitize-recover=all -fsanitize=float-divide-by-zero -fsanitize=float-cast-overflow -fno-sanitize=null -fno-sanitize=alignment
+
 all: $(NAME)
 
 $(NAME): $(addprefix $(DIROBJ), $(OBJ)) $(LIBFT) $(MINILIBX)
-	$(CC) $(addprefix $(DIROBJ),$(OBJ)) $(CFLAGS) -o $(NAME) -L./libft -L./minilibx-L./libft -L./minilibx -lft -lmlx_Linux -lXext -lX11 -lm -lz
+	$(CC)  -L./libft -L./minilibx  $(addprefix $(DIROBJ),$(OBJ)) $(CFLAGS) -lft -lmlx_Linux -lXext -lX11 -lm -lz -o $(NAME)  
 
 $(DIROBJ):
 	mkdir -p $(DIROBJ)
 
 $(addprefix $(DIROBJ), $(OBJ)): $(DIROBJ)
-	gcc $(CFLAGS) -c $(addprefix ./src/, $(SRC)) -lft -lmlx_Linux
+	$(CC) -L./libft -L./minilibx  $(CFLAGS) -c $(addprefix ./src/, $(SRC)) -lft -lmlx_Linux
 	mv $(OBJ) ./obj/
 
 $(LIBFT):
@@ -58,4 +60,5 @@ test: re
 run:
 	make test -C ./test
 
+#-fsanitize=address -fsanitize=undefined -fno-sanitize-recover=all -fsanitize=float-divide-by-zero -fsanitize=float-cast-overflow -fno-sanitize=null -fno-sanitize=alignment
 .PHONY: all clean test valgrind fclean re
