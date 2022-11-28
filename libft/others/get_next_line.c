@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llima-ce <luizlcezario@gmail.com>          +#+  +:+       +#+        */
+/*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 17:16:44 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/03/16 20:26:58 by llima-ce         ###   ########.fr       */
+/*   Updated: 2022/11/28 17:27:14 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*get_next_line(int fd)
 	if (buffer_lists[fd] == NULL)
 		buffer_lists[fd] = ft_lstnew(ft_strdup(""));
 	resf = read_text(&buffer_lists[fd], buffer_lists[fd],
-			ft_strlen(buffer_lists[fd]->content), fd);
+			ft_strlen((char *)buffer_lists[fd]->content), fd);
 	return (resf);
 }
 
@@ -45,7 +45,7 @@ char	*read_text(t_list **buffer_lists, t_list *last, int len, int fd)
 	ssize_t	bytes_read;
 	t_list	*end;
 
-	content = ft_strchr(last->content, '\n');
+	content = ft_strchr((char *)last->content, '\n');
 	if (content != NULL)
 	{
 		bytes_read = ft_strlen(content + 1);

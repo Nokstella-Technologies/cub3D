@@ -1,9 +1,5 @@
-#include "gtest/gtest.h"
 
-extern "C" {
-	#include "cub.h"
-	#include "libft.h"
-}
+#include "test.hpp"
 
 TEST(verify_sprite_color, simple) {
 	const char *map[5] = {"SO      ./test.sh","WE ./test.sh","NO ./test.sh", "EA ./test.sh"};
