@@ -6,13 +6,13 @@
 #    By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/22 16:11:34 by prafael-          #+#    #+#              #
-#    Updated: 2022/11/12 12:48:54 by llima-ce         ###   ########.fr        #
+#    Updated: 2022/11/28 16:50:12 by llima-ce         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Wextra -Werror -g3 -I ./src -I./libft -I./minilibx 
 
 CC = gcc
 
@@ -26,16 +26,18 @@ OBJ = $(SRC:.c=.o)
 
 DIROBJ = ./obj/
 
+UNITSFLAGS = -g3 -std=c++17 -Wall -Wextra -pthread -I/home/luiz/42/googletest/build -L/home/luiz/42/googletest/build 
+
 all: $(NAME)
 
 $(NAME): $(addprefix $(DIROBJ), $(OBJ)) $(LIBFT) $(MINILIBX)
-	$(CC) $(addprefix $(DIROBJ),$(OBJ)) $(CFLAGS) v-o  $(NAME)
+	$(CC) $(addprefix $(DIROBJ),$(OBJ)) $(CFLAGS) -o $(NAME) -L./libft -L./minilibx-L./libft -L./minilibx -lft -lmlx_Linux -lXext -lX11 -lm -lz
 
 $(DIROBJ):
 	mkdir -p $(DIROBJ)
 
 $(addprefix $(DIROBJ), $(OBJ)): $(DIROBJ)
-	gcc $(CFLAGS) -I . -c $(addprefix ./src/, $(SRC))
+	gcc $(CFLAGS) -c $(addprefix ./src/, $(SRC)) -lft -lmlx_Linux
 	mv $(OBJ) ./obj/
 
 $(LIBFT):
@@ -56,7 +58,7 @@ test: re
 	./cub3d map.cub
 
 unitest: $(LIBFT) $(MINILIBX)
-	g++  -g3 -I . ./src/read_map_utils.c ./src/error.c ./test/*.cpp  -Lmlx_Linux -lmlx_Linux -L ./minilibx -Imlx_Linux -L ./libft -lft -lXext -lX11 -lm -lz 
+	g++ $(UNITSFLAGS) -I./libft -L./libft -I./src -L./minilibx -I./minilibx  ./src/read_map_utils.c ./src/error.c ./test/*.cpp -lft -lmlx_Linux -lXext -lX11 -lm -lz -lgtest
 	./a.out
 
 .PHONY: all clean teste valgrind fclean re

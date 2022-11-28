@@ -1,8 +1,8 @@
 #include "gtest/gtest.h"
 
 extern "C" {
-	#include "../src/cub.h"
-	#include "../libft/libft.h"
+	#include "cub.h"
+	#include "libft.h"
 }
 
 int main(int argc, char **argv) {

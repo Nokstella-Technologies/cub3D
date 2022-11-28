@@ -6,13 +6,11 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:46:08 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/11/12 11:33:20 by llima-ce         ###   ########.fr       */
+/*   Updated: 2022/11/28 17:23:12 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-
-
 
 static int	add_new_line(t_map *cmap, char *line)
 {
@@ -21,17 +19,18 @@ static int	add_new_line(t_map *cmap, char *line)
 
 	a = 0;
 	tmp = (char **)malloc((cmap->map_y + 2) * sizeof(char *));
-	// if (validation_map(line) == 1)
-	// 	return (1);
-	tmp[cmap->map_y + 1] = line;
+	tmp[cmap->map_y + 1] = NULL;
+	tmp[cmap->map_y] = ft_strtrim(line, "\n");
 	a = ft_strlen(line);
 	if (cmap->map_x < a)
 		cmap->map_x = a;
 	a = -1;
 	while (++a < cmap->map_y)
 		tmp[a] = cmap->map[a];
-	free_ptr((void **)&cmap->map);
+	if (cmap->map_y != 0)
+		free_ptr((void **)&cmap->map);
 	cmap->map = tmp;
+	cmap->map_y++;
 	return (0);
 }
 
@@ -69,7 +68,7 @@ t_game	*read_map(char **argv)
 		exit(custom_error("erro de fd", 1));
 	game = (t_game *)malloc(1 * sizeof(t_game));
 	game->cmap = (t_map *)malloc(1 * sizeof(t_map));
-	if (game == NULL)
+	if (game == NULL || game->cmap == NULL)
 		exit(custom_error("erro de malloc", 1));
 	game->err = validation_loop(fd, game);
 	if (game->err != 0)

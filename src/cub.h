@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 17:22:02 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/11/12 11:32:16 by llima-ce         ###   ########.fr       */
+/*   Updated: 2022/11/28 16:12:24 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include <math.h>
 # include <fcntl.h>
 # include <unistd.h>
-# include "libft/libft.h"
-# include "minilibx/mlx.h"
+# include "libft.h"
+# include "mlx.h"
 
 typedef struct	s_vars {
 	void	*mlx;
