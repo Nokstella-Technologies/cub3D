@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:46:08 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/11/28 19:14:26 by llima-ce         ###   ########.fr       */
+/*   Updated: 2022/11/28 19:23:59 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	validation_loop(int fd, t_game *game)
 	{
 		if (game->err != 0)
 			break ;
-		if (*tmp != '\n')
+		if (*tmp != '\n' )
 		{
 			err = verify_sprite_color(tmp, game->cmap);
 			if (err == 0)
@@ -70,6 +70,8 @@ int	validation_loop(int fd, t_game *game)
 			else if (err != 1)
 				game->err = custom_error(tmp, err);
 		}
+		else if (err == 0)
+			game->err = custom_error("map with empty line", INV_MAP);
 		free_ptr((void **)&tmp);
 		tmp = get_next_line(fd);
 	}

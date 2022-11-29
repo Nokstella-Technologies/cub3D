@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 17:22:02 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/11/28 19:08:57 by llima-ce         ###   ########.fr       */
+/*   Updated: 2022/11/28 19:24:25 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,10 @@ typedef struct	s_game {
 # define MALLOC_ERR 501
 # define FD_ERR 502
 
-# define INV_ATR 511
 # define REPEAT_ATR 510
+# define INV_ATR 511
 # define INV_COLOR 512
+# define INV_MAP 513
 
 // # define FD_ERR "File not found"
 // # define ML_ERR "Malloc error"
