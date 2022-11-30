@@ -6,7 +6,7 @@
 #    By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/22 16:11:34 by prafael-          #+#    #+#              #
-#    Updated: 2022/11/28 18:55:55 by llima-ce         ###   ########.fr        #
+#    Updated: 2022/11/29 16:14:29 by llima-ce         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ LIBFT = ./libft/libft.a
 
 MINILIBX = ./minilibx/libmlx_Linux.a
 
-SRC =	main.c read_map.c error.c read_map_utils.c
+SRC =	main.c read_map.c error.c read_map_utils.c validation_map.c \
+		print_minimap.c start_game.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -31,7 +32,7 @@ SANITIZE = -fsanitize=address -fsanitize=undefined -fno-sanitize-recover=all -fs
 all: $(NAME)
 
 $(NAME): $(addprefix $(DIROBJ), $(OBJ)) $(LIBFT) $(MINILIBX)
-	$(CC)  -L./libft -L./minilibx  $(addprefix $(DIROBJ),$(OBJ)) $(CFLAGS) -lft -lmlx_Linux -lXext -lX11 -lm -lz -o $(NAME)  
+	$(CC)  -L./libft -L./minilibx  $(addprefix $(DIROBJ),$(OBJ)) $(CFLAGS) -lft -lmlx_Linux -lXext -lX11 -lm -lz -o $(NAME) $(SANITIZE) 
 
 $(DIROBJ):
 	mkdir -p $(DIROBJ)
@@ -48,6 +49,7 @@ $(MINILIBX):
 
 clean:
 	rm -rf $(DIROBJ)
+	rm -rf $(OBJ)
 
 fclean: clean
 	rm -f $(NAME)

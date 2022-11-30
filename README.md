@@ -12,3 +12,7 @@ by one or more space(s).
 [x] The map must be parsed as it looks in the file. Spaces are a valid part of the
 map and are up to you to handle. You must be able to parse any kind of map,
 as long as it respects the rules of the map.
+
+
+[] abrir sprites e fazer verificacao se existem 
+[] validacoes do mapa

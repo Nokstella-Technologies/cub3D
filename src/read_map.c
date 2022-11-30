@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:46:08 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/11/28 19:23:59 by llima-ce         ###   ########.fr       */
+/*   Updated: 2022/11/29 16:19:03 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	add_new_line(t_map *cmap, char *line)
 	tmp = (char **)malloc((cmap->map_y + 2) * sizeof(char *));
 	tmp[cmap->map_y + 1] = NULL;
 	tmp[cmap->map_y] = ft_strtrim(line, "\n");
-	a = ft_strlen(line);
+	a = ft_strlen(tmp[cmap->map_y]);
 	if (cmap->map_x < a)
 		cmap->map_x = a;
 	a = -1;
@@ -34,7 +34,7 @@ static int	add_new_line(t_map *cmap, char *line)
 	return (0);
 }
 
-static void	map_game(t_game *game)
+static void	init_game(t_game *game)
 {
 	game->err = 0;
 	game->cmap->ea = NULL;
@@ -50,9 +50,10 @@ static void	map_game(t_game *game)
 	game->cmap->floor_c[0] = -1;
 	game->cmap->floor_c[1] = -1;
 	game->cmap->floor_c[2] = -1;
+	game->cmap->hero = NULL;
 }
 
-int	validation_loop(int fd, t_game *game)
+static int	validation_loop(int fd, t_game *game)
 {
 	char	*tmp;
 	int		err;
@@ -100,11 +101,12 @@ t_game	*read_map(char **argv)
 		exit(custom_error("On open map file", FD_ERR));
 	game = (t_game *)malloc(1 * sizeof(t_game));
 	game->cmap = (t_map *)malloc(1 * sizeof(t_map));
-	map_game(game);
+	init_game(game);
 	if (game == NULL || game->cmap == NULL)
 		exit(custom_error("On malloc map and game", MALLOC_ERR));
-	game->err = validation_loop(fd, game);
+	else if (validation_loop(fd, game) == 0)
+		validation_map_line(game->cmap, game);
 	if (game->err != 0)
-		exit(1);
+		clean_all(game);
 	return (game);
 }

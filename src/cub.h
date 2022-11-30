@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 17:22:02 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/11/28 19:24:25 by llima-ce         ###   ########.fr       */
+/*   Updated: 2022/11/29 16:05:38 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,6 @@
 # include "libft.h"
 # include "mlx.h"
 
-typedef struct	s_vars {
-	void	*mlx;
-	void	*win;
-}				t_vars;
-
 typedef struct	s_pixel {
 	void	*img;
 	char	*addr;
@@ -33,6 +28,16 @@ typedef struct	s_pixel {
 	int		line_length;
 	int		endian;
 }				t_pixel;
+
+typedef struct s_hero {
+	int		x;
+	int		y;
+	float	px;
+	float	pdx;
+	float	pdy;
+	float	py;
+	float	pa;
+}			t_hero;
 
 typedef struct s_map {
 	char	*no;
@@ -44,10 +49,12 @@ typedef struct s_map {
 	char	**map;
 	int		map_x;
 	int		map_y;
+	t_hero	*hero;
 }			t_map;
 
 typedef struct	s_game {
-	t_vars	*vars;
+	void	*mlx;
+	void	*win;
 	t_map	*cmap;
 	int		err;
 }			t_game;
@@ -88,12 +95,15 @@ typedef struct	s_game {
 // # define FD_ERR "File not found"
 // # define ML_ERR "Malloc error"
 
-
+# define LEN(str) ft_strlen(str)
+# define DEGTORAD(a) (a*M_PI/180.0)
 
 t_game	*read_map(char **argv);
 int		custom_error(char *error, int err);
 void	free_ptr(void **ptr);
-void	*clean_map(t_map *map, int a);
+void	clean_all(t_game *game);
 int		verify_sprite_color(char *line, t_map *map);
-
+void	validation_map_line(t_map *cmap, t_game *game);
+void	start_game(t_game *game);
+void	print_mini_map(t_game *game);
 #endif
