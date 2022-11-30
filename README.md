@@ -16,3 +16,17 @@ as long as it respects the rules of the map.
 
 [] abrir sprites e fazer verificacao se existem 
 [] validacoes do mapa
+
+[] put sprites in the map.
+
+[] The left and right arrow keys of the keyboard must allow you to look left and
+right in the maze.
+[] The W, A, S, and D keys must allow you to move the point of view through
+the maze.
+
+Bonus list:
+[x] Wall collisions.
+[] A minimap system.
+[] Doors which can open and close.
+[] animated sprite.
+[] Rotate the point of view with the mouse.

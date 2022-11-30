@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:51:21 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/11/30 16:35:00 by llima-ce         ###   ########.fr       */
+/*   Updated: 2022/11/30 16:44:02 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ void draw_player2d(t_game *game)
 	}
 }
 
-void	print_mini_map(t_game *game)
+int	print_mini_map(t_game *game)
 {
 
 	drawRays2D(game);
@@ -180,4 +180,5 @@ void	print_mini_map(t_game *game)
 	// 	xy[1] += 64;
 	// }
 	// draw_player2d(game);
+	return (0);
 }

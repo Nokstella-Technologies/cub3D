@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 17:22:02 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/11/30 16:13:00 by llima-ce         ###   ########.fr       */
+/*   Updated: 2022/11/30 17:08:53 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,21 @@ typedef struct s_map {
 	t_hero	*hero;
 }			t_map;
 
+typedef struct	s_sprite {
+	void	*ea;
+	void	*no;
+	void	*so;
+	void	*we;
+}			t_sprite;
+
 typedef struct	s_game {
-	t_data	*img;
-	void	*mlx;
-	void	*win;
-	t_map	*cmap;
-	t_hero	*hero;
-	int		err;
+	t_data		*img;
+	void		*mlx;
+	void		*win;
+	t_sprite	*sprite;
+	t_map		*cmap;
+	t_hero		*hero;
+	int			err;
 }			t_game;
 
 // char map[5][5] = {"11111","10001","10N01", "10001", "11111"};
@@ -71,7 +79,7 @@ void	clean_all(t_game *game);
 int		verify_sprite_color(char *line, t_map *map);
 void	validation_map_line(t_map *cmap, t_game *game);
 void	start_game(t_game *game);
-void	print_mini_map(t_game *game);
+int		print_mini_map(t_game *game);
 float	fix_ang(float a);
 int		draw_line(t_game *game, int begin[2], int end[2], int color);
 void	square(t_game *game, int x, int y, int color);
