@@ -6,7 +6,7 @@
 #    By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/22 16:11:34 by prafael-          #+#    #+#              #
-#    Updated: 2022/11/29 16:14:29 by llima-ce         ###   ########.fr        #
+#    Updated: 2022/11/30 02:02:14 by llima-ce         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ LIBFT = ./libft/libft.a
 MINILIBX = ./minilibx/libmlx_Linux.a
 
 SRC =	main.c read_map.c error.c read_map_utils.c validation_map.c \
-		print_minimap.c start_game.c
+		print_minimap.c start_game.c math_utils.c draw_formats.c
 
 OBJ = $(SRC:.c=.o)
 
