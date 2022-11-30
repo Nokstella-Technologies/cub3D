@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:49:28 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/11/30 01:42:03 by llima-ce         ###   ########.fr       */
+/*   Updated: 2022/11/30 11:20:15 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ static int	hero_map(char c, int a, int i, t_map *cmap)
 	cmap->hero = (t_hero *)malloc(1 * sizeof(t_hero));
 	cmap->hero->x = i;
 	cmap->hero->y = a;
-	cmap->hero->px = 20 + 20 * 4.25;
-	cmap->hero->py = 20 + 20 * 4.25;
+	cmap->hero->px = MAP_S * (i);
+	cmap->hero->py = MAP_S * (a);
 	if (c == 'E')
 		cmap->hero->pa = 0;
 	else if (c == 'N')

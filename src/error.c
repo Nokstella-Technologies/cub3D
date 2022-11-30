@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 17:01:58 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/11/29 16:18:21 by llima-ce         ###   ########.fr       */
+/*   Updated: 2022/11/30 16:30:32 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,12 @@ int	custom_error(char *error, int err)
 	return (err);
 }
 
+int		close_all(t_game *game)
+{
+	clean_all(game);
+	return(0);
+}
+
 void	clean_all(t_game *game)
 {
 	int	err;
@@ -59,6 +65,5 @@ void	clean_all(t_game *game)
 	mlx_destroy_window(game->mlx, game->win);
 	mlx_destroy_display(game->mlx);
 	free_ptr((void **)&game->mlx);
-	free_ptr((void **)&game);
 	exit(err);
 }

@@ -6,55 +6,55 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:51:21 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/11/30 02:12:00 by llima-ce         ###   ########.fr       */
+/*   Updated: 2022/11/30 16:35:00 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-
-
-// float distance(int ax,ay,bx,by,ang){ return cos(DEGTORAD(ang))*(bx-ax)-sin(DEGTORAD(ang))*(by-ay);}
-
 void	drawRays2D(t_game *game)
 {
-	int		r,mx,my,mp,dof,side;
-	float	vx,vy,rx,ry,ra,xo,yo,disV,disH;
+	int		r,mx,my,mp,dof;
+	float	rx,ry,ra,xo,yo,vx,vy,disV,disH;
+	char	eyeV, eyeH;
 
 	ra = fix_ang(game->hero->pa + 30);
-	for (r=0; r<60; r++)
+	for (r = 0; r < 800; r++)
 	{
-		dof=0; side=0; disV=100000;
+		dof=0; 
+		disV=100000;
 		float Tan = tan(DEGTORAD(ra));
 		if (cos(DEGTORAD(ra)) > 0.001)
 		{
 			rx=(((int)game->hero->px>>6)<<6)+64;
 			ry=(game->hero->px-rx)*Tan+game->hero->py; xo= 64;
 			yo=-xo*Tan;
+			eyeV = 'W';
 		}//looking left
 		else if (cos(DEGTORAD(ra)) < -0.001)
 		{
 			rx=(((int)game->hero->px>>6)<<6) -0.0001;
 			ry=(game->hero->px-rx)*Tan+game->hero->py; xo=-64;
 			yo=-xo*Tan;
+			eyeV = 'E';
 		}//looking right
 		else
 		{
 			rx=game->hero->px;
 			ry=game->hero->py;
-			dof=8;
+			dof = game->cmap->map_x;
 		}//looking up or down. no hit  
-		while(dof<8)
+		while(dof < game->cmap->map_x || dof < game->cmap->map_y)
 		{
-			mx=(int)(rx)>>6;
-			my=(int)(ry)>>6;
+			mx = (int)(rx)>>6;
+			my = (int)(ry)>>6;
 			mp=my*game->cmap->map_x+mx;
-			if (mp > 0 && mp < game->cmap->map_x * game->cmap->map_y && game->cmap->map[mp] == 1)
+			// ft_printf("horizontal mx = %d my = %d mp = %d\n",mx,my,mp);
+			if (mp > 0 && my >= 0 && my < game->cmap->map_y && mx >= 0 && mx < game->cmap->map_x && game->cmap->map[my][mx] == '1')
 			{
-				dof = 8;
-				disV = cos(DEGTORAD(ra)) * (rx - game->hero->px) - sin(DEGTORAD(ra))
-				* (ry-game->hero->py);
-			}//hit         
+				dof = game->cmap->map_x;
+				disV = cos(DEGTORAD(ra)) * (rx - game->hero->px) - sin(DEGTORAD(ra)) * (ry - game->hero->py);
+			}
 			else
 			{
 				rx += xo;
@@ -74,60 +74,68 @@ void	drawRays2D(t_game *game)
 			rx = (game->hero->py - ry) * Tan + game->hero->px;
 			yo = - 64;
 			xo = -yo * Tan;
+			eyeH = 'N';
 		}//looking up 
 		else if (sin(DEGTORAD(ra)) < -0.001)
 		{
 			ry = (((int)game->hero->py>>6)<<6) + 64;
 			rx = (game->hero->py - ry) * Tan + game->hero->px;
 			yo= 64; xo = -yo * Tan;
+			eyeH = 'S';
 		}//looking down
 		else
 		{
 			rx = game->hero->px;
 			ry = game->hero->py;
-			dof = 8;
+			dof = game->cmap->map_y;
 		}//looking straight left or right
-		while (dof < 8)
+		while (dof < game->cmap->map_y)
 		{
 			mx = (int)(rx)>>6;
 			my = (int)(ry)>>6;
-			mp = my * game->cmap->map_x + mx;
-			if(mp > 0 && mp < game->cmap->map_x * game->cmap->map_y && game->cmap->map[mp] == 1)
+			mp=my*game->cmap->map_x+mx;
+			// ft_printf("vertical mx = %d my = %d mp = %d\n",mx,my,mp);
+			if (mp > 0 && my >= 0 && my < game->cmap->map_y && mx >= 0 && mx < game->cmap->map_x && game->cmap->map[my][mx] == '1')
 			{
-				dof=8;
-				disH = cos(DEGTORAD(ra)) * (rx-game->hero->px) - sin(DEGTORAD(ra))
-				* (ry - game->hero->py);
+				dof = game->cmap->map_y;
+				disH = cos(DEGTORAD(ra)) * (rx-game->hero->px) - sin(DEGTORAD(ra)) * (ry - game->hero->py);
 			}//hit         
 			else
 			{
-				rx+=xo;
-				ry+=yo;
-				dof+=1;
+				rx += xo;
+				ry += yo;
+				dof += 1;
 			}//check next horizontal
 		}
-		glColor3f(0,0.8,0);
 		if (disV < disH)
 		{
 			rx=vx;
 			ry=vy;
 			disH=disV;
-			draw_line(game, (int [2]) {px , rx}, (int [2]){py, ry},0xFF0000 )
+			eyeH=eyeV;
 		}
-		else
-		{
-			draw_line(game, (int [2]) {px , rx}, (int [2]){py, ry},0x00FF00 )
-		}
-// 		int ca = FixAng(game->hero->pa-ra);
-// 		disH = disH * cos(DEGTORAD(ca));//fix fisheye 
-// 		int lineH = (mapS*320)/(disH);
-// 		if (lineH>320)
-// 			lineH=320;//line height and limit
-// 		int lineOff = 160 - (lineH>>1);//line offset
-// //draw vertical wall  
-
-//   ra=FixAng(ra-1);                                                              //go to next ray
- }
-
+		int ca = fix_ang(game->hero->pa - ra);
+		disH = disH * cos(DEGTORAD(ca));//fix fisheye 
+		int lineH = (MAP_S*600)/(disH);
+		if (lineH>600)
+			lineH=600;//line height and limit
+		int lineOff = 300 - (lineH>>1);//line offset
+		//draw vertical wall
+		int	color;
+		if(eyeH == 'N')
+			color = 0xFF0000;
+		if(eyeH == 'E')
+			color = 0x00FF00;
+		if(eyeH == 'W')
+			color = 0x0000FF;
+		if(eyeH == 'S')
+			color = 0xFFFF00;
+		draw_line(game, (int [2]) {r, 0}, (int [2]){r, lineOff + 600 / 2}, create_trgb(255, game->cmap->floor_c[0],  game->cmap->floor_c[1],  game->cmap->floor_c[2]));
+		draw_line(game, (int [2]) {r, 600 / 2}, (int [2]){r, lineOff + 600},create_trgb(255, game->cmap->celling_c[0],  game->cmap->celling_c[1],  game->cmap->celling_c[2]));
+		draw_line(game, (int [2]) {r, lineOff}, (int [2]){r, lineOff + lineH}, color);
+		ra = fix_ang(ra - 0.075);//go to next ray
+	}
+}
 
 void draw_player2d(t_game *game)
 {
@@ -135,7 +143,7 @@ void draw_player2d(t_game *game)
 	int	j;
 
 	i = -1;
-	printf("px = %0.2f py = %0.2f pdx = %0.2f pdy = %0.2f\n", game->hero->px, game->hero->py, game->hero->pdx, game->hero->pdy);
+	// printf("px = %0.2f py = %0.2f pdx = %0.2f pdy = %0.2f\n", game->hero->px, game->hero->py, game->hero->pdx, game->hero->pdy);
 	while (++i < 6)
 	{
 		j = -1;
@@ -148,30 +156,28 @@ void draw_player2d(t_game *game)
 
 void	print_mini_map(t_game *game)
 {
-	int	a;
-	int	b;
-	int	xy[2];
 
-	a = game->cmap->hero->y - 5;
-	if (a < 0)
-		a = 0;
-	xy[1] = 20;
-	while(++a < game->cmap->hero->y + 5 && a < game->cmap->map_y)
-	{
-		xy[0] = 20;
-		b = game->cmap->hero->x - 5;
-		if (b < 0)
-			b = 0;
-		while(++b < game->cmap->hero->x + 5 && b < (int)LEN(game->cmap->map[a]))
-		{
-			if (game->cmap->map[a][b] == '1')
-				square(game, xy[0], xy[1], 0x003417);
-			else if (game->cmap->map[a][b] != ' ')
-				square(game, xy[0], xy[1], 0xFFFFFF);
-			xy[0] += 20;
-		}
-		xy[1] += 20;
-	}
-	draw_player2d(game);
+	drawRays2D(game);
+	mlx_put_image_to_window(game->mlx, game->win, game->img->img, 0, 0);
+	// int	a;
+	// int	b;
+	// int	xy[2];
 
+	// a = -1;
+	// xy[1] = 0;
+	// while(++a < game->cmap->map_y)
+	// {
+	// 	xy[0] = 0;
+	// 	b = -1;
+	// 	while(++b < (int)LEN(game->cmap->map[a]))
+	// 	{
+	// 		if (game->cmap->map[a][b] == '1')
+	// 			square(game, xy[0], xy[1], 0x003417);
+	// 		else if (game->cmap->map[a][b] != ' ')
+	// 			square(game, xy[0], xy[1], 0xFFFFFF);
+	// 		xy[0] += 64;
+	// 	}
+	// 	xy[1] += 64;
+	// }
+	// draw_player2d(game);
 }

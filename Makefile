@@ -6,19 +6,20 @@
 #    By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/22 16:11:34 by prafael-          #+#    #+#              #
-#    Updated: 2022/11/30 02:02:14 by llima-ce         ###   ########.fr        #
+#    Updated: 2022/11/30 15:29:56 by llima-ce         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 
-CFLAGS = -Wall -Wextra -Werror -g3 -I ./src -I./libft -I./minilibx 
+CFLAGS = -Wall -Wextra -Werror -g3 
 
 CC = gcc
 
-LIBFT = ./libft/libft.a
+LIBS = -L./lib/libft  -L./lib/minilibx -I./src -I./lib/libft -I./lib/minilibx
 
-MINILIBX = ./minilibx/libmlx_Linux.a
+LIBFT = ./lib/libft/libft.a
+MINILIBX = ./lib/minilibx/libmlx_Linux.a
 
 SRC =	main.c read_map.c error.c read_map_utils.c validation_map.c \
 		print_minimap.c start_game.c math_utils.c draw_formats.c
@@ -32,20 +33,20 @@ SANITIZE = -fsanitize=address -fsanitize=undefined -fno-sanitize-recover=all -fs
 all: $(NAME)
 
 $(NAME): $(addprefix $(DIROBJ), $(OBJ)) $(LIBFT) $(MINILIBX)
-	$(CC)  -L./libft -L./minilibx  $(addprefix $(DIROBJ),$(OBJ)) $(CFLAGS) -lft -lmlx_Linux -lXext -lX11 -lm -lz -o $(NAME) $(SANITIZE) 
+	$(CC)  $(LIBS) $(addprefix $(DIROBJ),$(OBJ)) $(CFLAGS) -lft -lmlx_Linux -lXext -lX11 -lm -lz -o $(NAME) $(SANITIZE) 
 
 $(DIROBJ):
 	mkdir -p $(DIROBJ)
 
 $(addprefix $(DIROBJ), $(OBJ)): $(DIROBJ)
-	$(CC) -L./libft -L./minilibx  $(CFLAGS) -c $(addprefix ./src/, $(SRC)) -lft -lmlx_Linux
+	$(CC) $(LIBS) $(CFLAGS) -c $(addprefix ./src/, $(SRC)) -lft -lmlx_Linux -lXext -lX11 -lm -lz
 	mv $(OBJ) ./obj/
 
 $(LIBFT):
-	make others -C ./libft
+	make others -C ./lib/libft
 
 $(MINILIBX):
-	./minilibx/configure
+	./lib/minilibx/configure
 
 clean:
 	rm -rf $(DIROBJ)

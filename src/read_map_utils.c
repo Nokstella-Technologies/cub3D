@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 11:06:21 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/11/29 16:17:02 by llima-ce         ###   ########.fr       */
+/*   Updated: 2022/11/30 14:48:02 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ int	verify_sprite_color(char *line, t_map *map)
 	else if (ft_strncmp(line, "F", 1) == 0)
 		return (colors(ft_substr(line, 1, ft_strlen(line)), map->floor_c));
 	else if (ft_strncmp(line, "C", 1) == 0)
-		return (colors(ft_substr(line, 1, ft_strlen(line)), map->celing_c));
+		return (colors(ft_substr(line, 1, ft_strlen(line)), map->celling_c));
 	else if (map->ea && map->no && map->so && map->we && map->floor_c[0] != -1
-		&& map->celing_c[0] != -1)
+		&& map->celling_c[0] != -1)
 		return (0);
 	else
 		return (INV_ATR);

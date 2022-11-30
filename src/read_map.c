@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:46:08 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/11/29 16:19:03 by llima-ce         ###   ########.fr       */
+/*   Updated: 2022/11/30 14:47:54 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ static void	init_game(t_game *game)
 	game->cmap->map_x = 0;
 	game->cmap->map_y = 0;
 	game->cmap->map = NULL;
-	game->cmap->celing_c[0] = -1;
-	game->cmap->celing_c[1] = -1;
-	game->cmap->celing_c[2] = -1;
+	game->cmap->celling_c[0] = -1;
+	game->cmap->celling_c[1] = -1;
+	game->cmap->celling_c[2] = -1;
 	game->cmap->floor_c[0] = -1;
 	game->cmap->floor_c[1] = -1;
 	game->cmap->floor_c[2] = -1;
