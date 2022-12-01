@@ -6,7 +6,7 @@
 #    By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/22 16:11:34 by prafael-          #+#    #+#              #
-#    Updated: 2022/12/01 00:13:22 by llima-ce         ###   ########.fr        #
+#    Updated: 2022/12/01 00:25:00 by llima-ce         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,13 +33,13 @@ SANITIZE = -fsanitize=address -fsanitize=undefined -fno-sanitize-recover=all -fs
 all: $(NAME)
 
 $(NAME): $(addprefix $(DIROBJ), $(OBJ)) $(LIBFT) $(MINILIBX)
-	$(CC)  $(LIBS) $(addprefix $(DIROBJ),$(OBJ)) $(CFLAGS) -lft -lmlx_Linux -lXext -lX11 -lm -lz -o $(NAME) $(SANITIZE) 
+	$(CC)  $(LIBS) -lft -lmlx_Linux -lXext -lX11 -lm -lz  $(addprefix $(DIROBJ),$(OBJ)) $(CFLAGS) -o $(NAME) $(SANITIZE) 
 
 $(DIROBJ):
 	mkdir -p $(DIROBJ)
 
 $(addprefix $(DIROBJ), $(OBJ)): $(DIROBJ)
-	$(CC) $(LIBS) $(CFLAGS) -c $(addprefix ./src/, $(SRC)) -lft -lmlx_Linux -lXext -lX11 -lm -lz
+	$(CC) $(LIBS) $(CFLAGS) -c  -lft -lmlx_Linux -lXext -lX11 -lm -lz $(addprefix ./src/, $(SRC))
 	mv $(OBJ) ./obj/
 
 $(LIBFT):
