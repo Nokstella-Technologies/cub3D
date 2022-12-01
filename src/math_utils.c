@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 00:59:00 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/11/30 18:17:18 by llima-ce         ###   ########.fr       */
+/*   Updated: 2022/12/01 15:32:34 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,5 @@ float	fix_ang(float a)
 
 float	deg_to_rad(float a)
 {
-	return (a*M_PI/180.0);
+	return (a* M_PI / 180.0);
 }
-

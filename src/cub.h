@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 17:22:02 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/11/30 18:17:22 by llima-ce         ###   ########.fr       */
+/*   Updated: 2022/12/01 18:38:22 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+
 # include <math.h>
 # include <fcntl.h>
 # include <unistd.h>
@@ -31,13 +32,13 @@ typedef struct	s_data {
 }				t_data;
 
 typedef struct s_hero {
-	int		x;
-	int		y;
-	float	px;
-	float	pdx;
-	float	pdy;
-	float	py;
-	float	pa;
+	int			x;
+	int			y;
+	float		px;
+	float		py;
+	float		pdx;
+	float		pdy;
+	float		pa;
 }			t_hero;
 
 typedef struct s_map {
@@ -60,6 +61,15 @@ typedef struct	s_sprite {
 	void	*we;
 }			t_sprite;
 
+typedef struct s_move {
+	t_bool	w;
+	t_bool	a;
+	t_bool	s;
+	t_bool	d;
+	t_bool	rot_r;
+	t_bool	rot_l;
+}			t_move;
+
 typedef struct	s_game {
 	t_data		*img;
 	void		*mlx;
@@ -67,6 +77,7 @@ typedef struct	s_game {
 	t_sprite	*sprite;
 	t_map		*cmap;
 	t_hero		*hero;
+	t_move		*move;
 	int			err;
 }			t_game;
 
