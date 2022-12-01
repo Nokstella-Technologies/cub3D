@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:49:28 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/11/30 11:20:15 by llima-ce         ###   ########.fr       */
+/*   Updated: 2022/11/30 18:18:56 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ static int	hero_map(char c, int a, int i, t_map *cmap)
 		cmap->hero->pa = 180;
 	else if (c == 'S')
 		cmap->hero->pa = 270;
-	cmap->hero->pdx = cos(DEGTORAD(cmap->hero->pa));
-	cmap->hero->pdy = -sin(DEGTORAD(cmap->hero->pa));
+	cmap->hero->pdx = cos(deg_to_rad(cmap->hero->pa));
+	cmap->hero->pdy = -sin(deg_to_rad(cmap->hero->pa));
 	return (0);
 }
 

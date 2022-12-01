@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 15:34:31 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/11/30 15:36:20 by llima-ce         ###   ########.fr       */
+/*   Updated: 2022/11/30 18:16:20 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,16 @@
 # define KEY_RIGHT 65363
 
 # define UNKNOWN_ERR 500
-# define MALLOC_ERR 501
 # define FD_ERR 502
+# define MALLOC_ERR 501
 
 # define REPEAT_ATR 510
 # define INV_ATR 511
 # define INV_COLOR 512
 # define INV_MAP 513
+# define GAME_LOAD 520
 
 # define LEN(str) ft_strlen(str)
-# define DEGTORAD(a) (a*M_PI/180.0)
 # define MAP_S 64
 # define PI 3.1415926535
 

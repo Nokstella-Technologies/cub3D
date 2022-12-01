@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:51:21 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/11/30 16:44:02 by llima-ce         ###   ########.fr       */
+/*   Updated: 2022/12/01 00:02:50 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@ void	drawRays2D(t_game *game)
 	{
 		dof=0; 
 		disV=100000;
-		float Tan = tan(DEGTORAD(ra));
-		if (cos(DEGTORAD(ra)) > 0.001)
+		float Tan = tan(deg_to_rad(ra));
+		if (cos(deg_to_rad(ra)) > 0.001)
 		{
 			rx=(((int)game->hero->px>>6)<<6)+64;
 			ry=(game->hero->px-rx)*Tan+game->hero->py; xo= 64;
 			yo=-xo*Tan;
 			eyeV = 'W';
 		}//looking left
-		else if (cos(DEGTORAD(ra)) < -0.001)
+		else if (cos(deg_to_rad(ra)) < -0.001)
 		{
 			rx=(((int)game->hero->px>>6)<<6) -0.0001;
 			ry=(game->hero->px-rx)*Tan+game->hero->py; xo=-64;
@@ -53,7 +53,7 @@ void	drawRays2D(t_game *game)
 			if (mp > 0 && my >= 0 && my < game->cmap->map_y && mx >= 0 && mx < game->cmap->map_x && game->cmap->map[my][mx] == '1')
 			{
 				dof = game->cmap->map_x;
-				disV = cos(DEGTORAD(ra)) * (rx - game->hero->px) - sin(DEGTORAD(ra)) * (ry - game->hero->py);
+				disV = cos(deg_to_rad(ra)) * (rx - game->hero->px) - sin(deg_to_rad(ra)) * (ry - game->hero->py);
 			}
 			else
 			{
@@ -68,7 +68,7 @@ void	drawRays2D(t_game *game)
 		dof = 0;
 		disH = 100000;
 		Tan = 1.0 / Tan;
-		if (sin(DEGTORAD(ra)) > 0.001)
+		if (sin(deg_to_rad(ra)) > 0.001)
 		{
 			ry = (((int)game->hero->py>>6)<<6) - 0.0001;
 			rx = (game->hero->py - ry) * Tan + game->hero->px;
@@ -76,7 +76,7 @@ void	drawRays2D(t_game *game)
 			xo = -yo * Tan;
 			eyeH = 'N';
 		}//looking up 
-		else if (sin(DEGTORAD(ra)) < -0.001)
+		else if (sin(deg_to_rad(ra)) < -0.001)
 		{
 			ry = (((int)game->hero->py>>6)<<6) + 64;
 			rx = (game->hero->py - ry) * Tan + game->hero->px;
@@ -98,7 +98,7 @@ void	drawRays2D(t_game *game)
 			if (mp > 0 && my >= 0 && my < game->cmap->map_y && mx >= 0 && mx < game->cmap->map_x && game->cmap->map[my][mx] == '1')
 			{
 				dof = game->cmap->map_y;
-				disH = cos(DEGTORAD(ra)) * (rx-game->hero->px) - sin(DEGTORAD(ra)) * (ry - game->hero->py);
+				disH = cos(deg_to_rad(ra)) * (rx-game->hero->px) - sin(deg_to_rad(ra)) * (ry - game->hero->py);
 			}//hit         
 			else
 			{
@@ -115,24 +115,24 @@ void	drawRays2D(t_game *game)
 			eyeH=eyeV;
 		}
 		int ca = fix_ang(game->hero->pa - ra);
-		disH = disH * cos(DEGTORAD(ca));//fix fisheye 
+		disH = disH * cos(deg_to_rad(ca));//fix fisheye 
 		int lineH = (MAP_S*600)/(disH);
 		if (lineH>600)
 			lineH=600;//line height and limit
 		int lineOff = 300 - (lineH>>1);//line offset
 		//draw vertical wall
-		int	color;
-		if(eyeH == 'N')
-			color = 0xFF0000;
-		if(eyeH == 'E')
-			color = 0x00FF00;
-		if(eyeH == 'W')
-			color = 0x0000FF;
-		if(eyeH == 'S')
-			color = 0xFFFF00;
-		draw_line(game, (int [2]) {r, 0}, (int [2]){r, lineOff + 600 / 2}, create_trgb(255, game->cmap->floor_c[0],  game->cmap->floor_c[1],  game->cmap->floor_c[2]));
-		draw_line(game, (int [2]) {r, 600 / 2}, (int [2]){r, lineOff + 600},create_trgb(255, game->cmap->celling_c[0],  game->cmap->celling_c[1],  game->cmap->celling_c[2]));
-		draw_line(game, (int [2]) {r, lineOff}, (int [2]){r, lineOff + lineH}, color);
+		draw_line(game, (int [2]) {r, 0}, (int [2]){r, lineOff}, create_trgb(255, game->cmap->floor_c[0],  game->cmap->floor_c[1],  game->cmap->floor_c[2]));
+		draw_line(game, (int [2]) {r, lineOff + lineH}, (int [2]){r, 600},create_trgb(255, game->cmap->celling_c[0],  game->cmap->celling_c[1],  game->cmap->celling_c[2]));
+		draw_line(game, (int [2]) {r, lineOff}, (int [2]){r, lineOff + lineH}, 0x4F3F5F);
+		(void) eyeH;
+		// if (eyeH == 'N')
+			// mlx_put_image_to_window(game->mlx, game->win, game->sprite->no, r,lineOff);
+		// if(eyeH == 'E')
+		// 	mlx_put_image_to_window(game->mlx, game->win, game->sprite->ea,r,lineOff);
+		// if(eyeH == 'W')
+		// 	mlx_put_image_to_window(game->mlx, game->win, game->sprite->we,r,lineOff);
+		// if(eyeH == 'S')
+		// 	mlx_put_image_to_window(game->mlx, game->win, game->sprite->so,r,lineOff);
 		ra = fix_ang(ra - 0.075);//go to next ray
 	}
 }

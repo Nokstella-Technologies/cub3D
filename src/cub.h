@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 17:22:02 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/11/30 17:08:53 by llima-ce         ###   ########.fr       */
+/*   Updated: 2022/11/30 18:17:22 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,5 @@ int		draw_line(t_game *game, int begin[2], int end[2], int color);
 void	square(t_game *game, int x, int y, int color);
 int		close_all(t_game *game);
 int		create_trgb(int t, int r, int g, int b);
-
+float	deg_to_rad(float a);
 #endif

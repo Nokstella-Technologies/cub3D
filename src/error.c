@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 17:01:58 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/11/30 16:30:32 by llima-ce         ###   ########.fr       */
+/*   Updated: 2022/11/30 17:44:19 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	custom_error(char *error, int err)
 		ft_printf("Error\n\tRepeat Atribbute: %s\n", error);
 	else if (err == INV_MAP)
 		ft_printf("Error\n\tInvalid Map Costruction: %s\n", error);
+	else if (err == GAME_LOAD)
+		ft_printf("Error\n\tErro on start the game: %s\n", error);
 	else
 		ft_printf("Error\n%s\n", error);
 	return (err);
