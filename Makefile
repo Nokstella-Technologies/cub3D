@@ -6,13 +6,13 @@
 #    By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/22 16:11:34 by prafael-          #+#    #+#              #
-#    Updated: 2022/11/30 15:29:56 by llima-ce         ###   ########.fr        #
+#    Updated: 2022/12/01 00:13:22 by llima-ce         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 
-CFLAGS = -Wall -Wextra -Werror -g3 
+CFLAGS = -Wall -Wextra -Werror -g3 -O3
 
 CC = gcc
 
@@ -46,7 +46,7 @@ $(LIBFT):
 	make others -C ./lib/libft
 
 $(MINILIBX):
-	./lib/minilibx/configure
+	cd ./lib/minilibx && ./configure
 
 clean:
 	rm -rf $(DIROBJ)
