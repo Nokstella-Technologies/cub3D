@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 17:22:02 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/12/01 18:38:22 by llima-ce         ###   ########.fr       */
+/*   Updated: 2022/12/01 19:47:29 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,17 @@
 # include "mlx.h"
 # include "defines.h"
 
-typedef struct	s_data {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}				t_data;
+typedef struct s_img
+{
+	int			bpp;
+	int			size_l;
+	int			endian;
+	int			width;
+	int			height;
+	int			color;
+	void		*img_ptr;
+	char		*dump;
+}				t_img;
 
 typedef struct s_hero {
 	int			x;
@@ -55,10 +59,10 @@ typedef struct s_map {
 }			t_map;
 
 typedef struct	s_sprite {
-	void	*ea;
-	void	*no;
-	void	*so;
-	void	*we;
+	t_img	*ea;
+	t_img	*no;
+	t_img	*so;
+	t_img	*we;
 }			t_sprite;
 
 typedef struct s_move {
@@ -71,7 +75,7 @@ typedef struct s_move {
 }			t_move;
 
 typedef struct	s_game {
-	t_data		*img;
+	t_img		*img;
 	void		*mlx;
 	void		*win;
 	t_sprite	*sprite;

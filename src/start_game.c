@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:05:55 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/12/01 16:41:42 by llima-ce         ###   ########.fr       */
+/*   Updated: 2022/12/01 19:47:42 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ int	Key_pressed(int keycode, t_game *game)
 	return (0);
 }
 
-static void	*img_init(char *img, void *mlx)
+void img_init(char *name, void *mlx, t_img *img)
 {
-	void	*img_ptr;
 	int		width;
 
-	(void ) img;
-	img_ptr = mlx_xpm_file_to_image(mlx, "./assets/bluebrick.xpm", &width, &width);
-	return (img_ptr);
+	(void)name;
+	img->img_ptr = mlx_xpm_file_to_image(mlx, "./assets/bluebrick.xpm", &width,
+		&width);
+	img->dump = mlx_get_data_addr(img->img_ptr, &img->bpp, &img->size_l, &img->endian);
 }
 
 int	key_release(int keycode, t_game *game)
@@ -73,10 +73,14 @@ void	init_sprites(t_game *game)
 	move->w = FALSE;
 	move->rot_l = FALSE;
 	move->rot_r = FALSE;
-	game->sprite->ea = img_init(game->cmap->ea, game->mlx);
-	game->sprite->no = img_init(game->cmap->no, game->mlx);
-	game->sprite->so = img_init(game->cmap->so, game->mlx);
-	game->sprite->we = img_init(game->cmap->we, game->mlx);
+	game->sprite->ea = malloc(sizeof(t_img));
+	game->sprite->no = malloc(sizeof(t_img));
+	game->sprite->so = malloc(sizeof(t_img));
+	game->sprite->we = malloc(sizeof(t_img));
+	img_init(game->cmap->ea, game->mlx, game->sprite->ea);
+	img_init(game->cmap->no, game->mlx, game->sprite->no);
+	img_init(game->cmap->so, game->mlx, game->sprite->so);
+	img_init(game->cmap->we, game->mlx, game->sprite->we);
 	if (!game->sprite->ea || !game->sprite->no || !game->sprite->so
 		|| !game->sprite->we)
 		game->err = custom_error("failed to load sprites", 520);
@@ -96,7 +100,7 @@ void loop(t_game *game)
 
 void	start_game(t_game *game)
 {
-	t_data	img;
+	t_img	img;
 
 	game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx, MAP_X, MAP_Y, "Cub42D");
@@ -106,9 +110,8 @@ void	start_game(t_game *game)
 		clean_all(game);
 	}
 	init_sprites(game);
-	img.img = mlx_new_image(game->mlx, MAP_X, MAP_Y);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
-								&img.endian);
+	img.img_ptr = mlx_new_image(game->mlx, MAP_X, MAP_Y);
+	img.dump = mlx_get_data_addr(img.img_ptr, &img.bpp, &img.size_l, &img.endian);
 	game->img = &img;
 	game->hero = game->cmap->hero;
 	if (game->err != 0)
