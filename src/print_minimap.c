@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:51:21 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/12/01 00:02:50 by llima-ce         ###   ########.fr       */
+/*   Updated: 2022/12/01 00:20:37 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	drawRays2D(t_game *game)
 {
 	int		r,mx,my,mp,dof;
-	float	rx,ry,ra,xo,yo,vx,vy,disV,disH;
+	float	rx,ry,ra,xo = 0,yo = 0,vx,vy,disV,disH;
 	char	eyeV, eyeH;
 
 	ra = fix_ang(game->hero->pa + 30);
