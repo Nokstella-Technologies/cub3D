@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:46:08 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/12/01 00:16:32 by llima-ce         ###   ########.fr       */
+/*   Updated: 2022/12/01 00:32:31 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static int	validation_loop(int fd, t_game *game)
 	int		err;
 
 	tmp = get_next_line(fd);
+	err = 1;
 	while(tmp != NULL)
 	{
 		if (game->err != 0)
@@ -71,7 +72,7 @@ static int	validation_loop(int fd, t_game *game)
 			else if (err != 1)
 				game->err = custom_error(tmp, err);
 		}
-		else if (game->err == 0)
+		else if (err == 0)
 			game->err = custom_error("map with empty line", INV_MAP);
 		free_ptr((void **)&tmp);
 		tmp = get_next_line(fd);
