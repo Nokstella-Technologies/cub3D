@@ -1,7 +1,7 @@
-NO ./assets/redbrick.xpm
-SO ./assets/yellowbrick.xpm
-WE ./assets/bluebrick.xpm
-EA ./assets/greenbrick.xpm
+NO assets/redbrick.xpm
+SO assets/greenbrick.xpm
+EA assets/bluebrick.xpm
+WE assets/yellowbrick.xpm
 
 F 195,189,240
 C 20,20,20

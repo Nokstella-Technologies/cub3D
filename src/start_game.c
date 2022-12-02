@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:05:55 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/12/01 19:47:42 by llima-ce         ###   ########.fr       */
+/*   Updated: 2022/12/01 21:28:28 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ int	Key_pressed(int keycode, t_game *game)
 	return (0);
 }
 
-void img_init(char *name, void *mlx, t_img *img)
+int	img_init(char *name, void *mlx, t_img *img)
 {
-	int		width;
-
-	(void)name;
-	img->img_ptr = mlx_xpm_file_to_image(mlx, "./assets/bluebrick.xpm", &width,
-		&width);
+	img->img_ptr = mlx_xpm_file_to_image(mlx, name, &img->width,
+		&img->height);
+	if (img->img_ptr == NULL)
+		return(custom_error("failed to load sprites", 520));
 	img->dump = mlx_get_data_addr(img->img_ptr, &img->bpp, &img->size_l, &img->endian);
+	return (0);
 }
 
 int	key_release(int keycode, t_game *game)
@@ -77,13 +77,10 @@ void	init_sprites(t_game *game)
 	game->sprite->no = malloc(sizeof(t_img));
 	game->sprite->so = malloc(sizeof(t_img));
 	game->sprite->we = malloc(sizeof(t_img));
-	img_init(game->cmap->ea, game->mlx, game->sprite->ea);
-	img_init(game->cmap->no, game->mlx, game->sprite->no);
-	img_init(game->cmap->so, game->mlx, game->sprite->so);
-	img_init(game->cmap->we, game->mlx, game->sprite->we);
-	if (!game->sprite->ea || !game->sprite->no || !game->sprite->so
-		|| !game->sprite->we)
-		game->err = custom_error("failed to load sprites", 520);
+	game->err = img_init(game->cmap->ea, game->mlx, game->sprite->ea);
+	game->err = img_init(game->cmap->no, game->mlx, game->sprite->no);
+	game->err = img_init(game->cmap->so, game->mlx, game->sprite->so);
+	game->err = img_init(game->cmap->so, game->mlx, game->sprite->we);
 }
 
 

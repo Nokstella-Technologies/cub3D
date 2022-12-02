@@ -6,12 +6,28 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:51:21 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/12/01 19:32:55 by llima-ce         ###   ########.fr       */
+/*   Updated: 2022/12/01 22:58:07 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
+
+void	check_inverse_offset_x(t_ray ray, int *texture_offset_x)
+{
+	if (!ray.was_hit_vertical && is_ray_facing_down(ray.ray_angle))
+		*texture_offset_x = TILE_SIZE - *texture_offset_x;
+	if (ray.was_hit_vertical && is_ray_facing_left(ray.ray_angle))
+		*texture_offset_x = TILE_SIZE - *texture_offset_x;
+}
+
+int	get_texture_offset_x(t_ray ray)
+{
+	if (ray.was_hit_vertical)
+		return ((int)ray.wall_hit_y % TILE_SIZE);
+	else
+		return ((int)ray.wall_hit_x % TILE_SIZE);
+}
 
 void	drawRays2D(t_game *game)
 {
@@ -108,10 +124,14 @@ void	drawRays2D(t_game *game)
 				dof += 1;
 			}//check next horizontal
 		}
+
+		// calcula altura e tamanho para printar o raio de visao na tela
+		  float shade=1;
 		if (disV < disH)
 		{
 			rx=vx;
 			ry=vy;
+			shade=0.5;
 			disH=disV;
 			eyeH=eyeV;
 		}
@@ -119,21 +139,54 @@ void	drawRays2D(t_game *game)
 		disH = disH * cos(deg_to_rad(ca));//fix fisheye 
 		int lineH = (MAP_S*600)/(disH);
 		if (lineH>600)
-			lineH=600;//line height and limit
+			lineH=600;
+		float ty_off = 0;
+		if(lineH>600)
+		{
+			ty_off=(lineH-600)/2.0;
+			lineH=600;
+		}
 		int lineOff = 300 - (lineH>>1);//line offset
-		//draw vertical wall
+
+		
 		draw_line(game, (int [2]) {r, 0}, (int [2]){r, lineOff}, create_trgb(255, game->cmap->floor_c[0],  game->cmap->floor_c[1],  game->cmap->floor_c[2]));
 		draw_line(game, (int [2]) {r, lineOff + lineH}, (int [2]){r, 600},create_trgb(255, game->cmap->celling_c[0],  game->cmap->celling_c[1],  game->cmap->celling_c[2]));
-		int color = 0x000000;
-		if (eyeH == 'N')
-			color = 0xAF0000;
-		if (eyeH == 'E')
-			color = 0x00AF00;
-		if (eyeH == 'W')
-			color = 0x0000AF;
-		if (eyeH == 'S')
-			color = 0xAFAF00;
-		draw_line(game, (int [2]) {r, lineOff}, (int [2]){r, lineOff + lineH}, color);
+		
+		
+		//draw vertical wall
+		float ty_step=64.0/(float)lineH;
+		int		y;
+		float	ty = ty_off * ty_step;
+		float	tx;
+		if (shade==1)
+		{
+			tx = (int)(rx/2.0)%game->img->width;
+			if (ra > 300)
+				tx = 63 - tx;
+		}
+		else
+		{
+			tx = (int)(ry/2.0)%32;
+			if (ra>90 && ra<270)
+				tx = 63-tx;
+		}
+		(void) ty;
+		for (y=0;y<lineH;y++)
+		{
+			int	color = 0x000000;
+			if (eyeH == 'N')
+			{
+				game->sprite->no->dump[tx][ty];
+			}
+			if (eyeH == 'E')
+				color = 0x00AF00;
+			if (eyeH == 'W')
+				color = 0x0000AF;
+			if (eyeH == 'S')
+				color = 0xAFAF00;
+			my_mlx_pixel_put(game->img, r, lineOff + y, color);
+			// ty+=ty_step;
+		}
 		ra = fix_ang(ra - 0.075);//go to next ray
 	}
 }

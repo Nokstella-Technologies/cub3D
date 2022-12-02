@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 17:22:02 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/12/01 19:47:29 by llima-ce         ###   ########.fr       */
+/*   Updated: 2022/12/01 22:42:51 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,4 +101,5 @@ void	square(t_game *game, int x, int y, int color);
 int		close_all(t_game *game);
 int		create_trgb(int t, int r, int g, int b);
 float	deg_to_rad(float a);
+void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 #endif

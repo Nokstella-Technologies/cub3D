@@ -19,9 +19,9 @@ as long as it respects the rules of the map.
 
 [] put sprites in the map.
 
-[] The left and right arrow keys of the keyboard must allow you to look left and
+[x] The left and right arrow keys of the keyboard must allow you to look left and
 right in the maze.
-[] The W, A, S, and D keys must allow you to move the point of view through
+[x] The W, A, S, and D keys must allow you to move the point of view through
 the maze.
 
 Bonus list:

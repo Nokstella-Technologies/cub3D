@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 17:01:58 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/12/01 15:18:21 by llima-ce         ###   ########.fr       */
+/*   Updated: 2022/12/01 21:28:55 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,17 @@ void	clean_all(t_game *game)
 		free_ptr((void **)&game->cmap->map[game->cmap->map_y]);
 	free_ptr((void **)&game->cmap->map);
 	free_ptr((void **)&game->cmap);
-	mlx_destroy_image(game->mlx, game->sprite->ea);
-	mlx_destroy_image(game->mlx, game->sprite->no);
-	mlx_destroy_image(game->mlx, game->sprite->so);
-	mlx_destroy_image(game->mlx, game->sprite->we);
-	free_ptr((void **)&game->sprite);
+	mlx_destroy_image(game->mlx, game->img->img_ptr);
+	mlx_destroy_image(game->mlx, game->sprite->ea->img_ptr);
+	mlx_destroy_image(game->mlx, game->sprite->no->img_ptr);
+	mlx_destroy_image(game->mlx, game->sprite->so->img_ptr);
+	mlx_destroy_image(game->mlx, game->sprite->we->img_ptr);
+	free_ptr((void **)&game->sprite->ea);
+	free_ptr((void **)&game->sprite->so);
+	free_ptr((void **)&game->sprite->we);
+	free_ptr((void **)&game->sprite->no);
 	free_ptr((void **)&game->move);
+	free_ptr((void **)&game->sprite);
 	mlx_destroy_window(game->mlx, game->win);
 	mlx_destroy_display(game->mlx);
 	free_ptr((void **)&game->mlx);
