@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 17:22:02 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/12/01 22:42:51 by llima-ce         ###   ########.fr       */
+/*   Updated: 2022/12/07 16:30:33 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,6 @@ typedef struct	s_game {
 	t_move		*move;
 	int			err;
 }			t_game;
-
-// char map[5][5] = {"11111","10001","10N01", "10001", "11111"};
 
 t_game	*read_map(char **argv);
 int		custom_error(char *error, int err);

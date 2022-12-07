@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:05:55 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/12/01 21:28:28 by llima-ce         ###   ########.fr       */
+/*   Updated: 2022/12/07 17:33:58 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	init_sprites(t_game *game)
 	game->err = img_init(game->cmap->ea, game->mlx, game->sprite->ea);
 	game->err = img_init(game->cmap->no, game->mlx, game->sprite->no);
 	game->err = img_init(game->cmap->so, game->mlx, game->sprite->so);
-	game->err = img_init(game->cmap->so, game->mlx, game->sprite->we);
+	game->err = img_init(game->cmap->we, game->mlx, game->sprite->we);
 }
 
 

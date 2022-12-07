@@ -6,28 +6,11 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:51:21 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/12/01 22:58:07 by llima-ce         ###   ########.fr       */
+/*   Updated: 2022/12/07 17:35:39 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-
-
-void	check_inverse_offset_x(t_ray ray, int *texture_offset_x)
-{
-	if (!ray.was_hit_vertical && is_ray_facing_down(ray.ray_angle))
-		*texture_offset_x = TILE_SIZE - *texture_offset_x;
-	if (ray.was_hit_vertical && is_ray_facing_left(ray.ray_angle))
-		*texture_offset_x = TILE_SIZE - *texture_offset_x;
-}
-
-int	get_texture_offset_x(t_ray ray)
-{
-	if (ray.was_hit_vertical)
-		return ((int)ray.wall_hit_y % TILE_SIZE);
-	else
-		return ((int)ray.wall_hit_x % TILE_SIZE);
-}
 
 void	drawRays2D(t_game *game)
 {
@@ -160,32 +143,30 @@ void	drawRays2D(t_game *game)
 		float	tx;
 		if (shade==1)
 		{
-			tx = (int)(rx/2.0)%game->img->width;
+			tx = (int)(rx/2.0);
+			tx = (int)tx%64;
 			if (ra > 300)
 				tx = 63 - tx;
 		}
 		else
 		{
-			tx = (int)(ry/2.0)%32;
+			tx = (int)(ry/2.0)%64;
 			if (ra>90 && ra<270)
 				tx = 63-tx;
 		}
-		(void) ty;
 		for (y=0;y<lineH;y++)
 		{
-			int	color = 0x000000;
+			int	color = (int)(ty) * 64 * 4 + (int)(tx) * 4;
 			if (eyeH == 'N')
-			{
-				game->sprite->no->dump[tx][ty];
-			}
+				color = create_trgb(shade, game->sprite->no->dump[color], game->sprite->no->dump[color + 1], game->sprite->no->dump[color + 2]);
 			if (eyeH == 'E')
-				color = 0x00AF00;
+				color =  create_trgb(shade, game->sprite->ea->dump[color], game->sprite->ea->dump[color + 1], game->sprite->ea->dump[color + 2]);
 			if (eyeH == 'W')
-				color = 0x0000AF;
+				color =  create_trgb(shade, game->sprite->we->dump[color], game->sprite->we->dump[color + 1], game->sprite->we->dump[color + 2]);
 			if (eyeH == 'S')
-				color = 0xAFAF00;
+				color =  create_trgb(shade, game->sprite->so->dump[color], game->sprite->so->dump[color + 1], game->sprite->so->dump[color + 2]);
 			my_mlx_pixel_put(game->img, r, lineOff + y, color);
-			// ty+=ty_step;
+			ty+=ty_step;
 		}
 		ra = fix_ang(ra - 0.075);//go to next ray
 	}
