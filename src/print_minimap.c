@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:51:21 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/12/07 17:35:39 by llima-ce         ###   ########.fr       */
+/*   Updated: 2022/12/08 10:47:33 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ void	drawRays2D(t_game *game)
 		int lineH = (MAP_S*600)/(disH);
 		if (lineH>600)
 			lineH=600;
+		double	ty_step=64.0/(float)lineH;
 		float ty_off = 0;
 		if(lineH>600)
 		{
@@ -137,10 +138,9 @@ void	drawRays2D(t_game *game)
 		
 		
 		//draw vertical wall
-		float ty_step=64.0/(float)lineH;
 		int		y;
-		float	ty = ty_off * ty_step;
-		float	tx;
+		double	ty = ty_off * ty_step;
+		double	tx;
 		if (shade==1)
 		{
 			tx = (int)(rx/2.0);
@@ -158,7 +158,7 @@ void	drawRays2D(t_game *game)
 		{
 			int	color = (int)(ty) * 64 * 4 + (int)(tx) * 4;
 			if (eyeH == 'N')
-				color = create_trgb(shade, game->sprite->no->dump[color], game->sprite->no->dump[color + 1], game->sprite->no->dump[color + 2]);
+				color = create_trgb(shade,(int) game->sprite->no->dump[color],(int) game->sprite->no->dump[color + 1], (int)game->sprite->no->dump[color + 2]);
 			if (eyeH == 'E')
 				color =  create_trgb(shade, game->sprite->ea->dump[color], game->sprite->ea->dump[color + 1], game->sprite->ea->dump[color + 2]);
 			if (eyeH == 'W')
