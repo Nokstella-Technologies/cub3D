@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 15:34:31 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/12/01 17:16:52 by llima-ce         ###   ########.fr       */
+/*   Updated: 2022/12/12 20:45:31 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@
 # define LEN(str) ft_strlen(str)
 # define MAP_S 64
 # define PI 3.1415926535
-# define MOVE_SP 0.2 * 5.0
-# define ROT_SP 0.2 * 4.0
+# define MOVE_SP 0.2 * 10.0
+# define ROT_SP 0.2 * 8.0
 
 # define MAP_X 800
 # define MAP_Y 600

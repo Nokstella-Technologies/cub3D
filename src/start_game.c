@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:05:55 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/12/12 19:22:00 by llima-ce         ###   ########.fr       */
+/*   Updated: 2022/12/12 20:43:20 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	img_init(char *name, void *mlx, t_img *img)
 	if (img->img_ptr == NULL)
 		return(custom_error("failed to load sprites", 520));
 	img->dump = mlx_get_data_addr(img->img_ptr, &img->bpp, &img->size_l, &img->endian);
-	printf("%i , %i, %i, %i\n", img->dump[0],img->dump[1],img->dump[2],img->dump[3]);
 	return (0);
 }
 
@@ -91,7 +90,7 @@ void loop(t_game *game)
 	mlx_hook(game->win, 2, 1L << 0, &Key_pressed, game);
 	mlx_hook(game->win, 3, 1L << 1, &key_release, game);
 	mlx_hook(game->win, 17, 0, &close_all, game);
-	// mlx_hook(game->win, 9, 1L << 21, &print_mini_map, game);
+	mlx_hook(game->win, 9, 1L << 21, &print_mini_map, game);
 	mlx_loop_hook(game->mlx, &print_mini_map, game);
 	mlx_loop(game->mlx);
 }
