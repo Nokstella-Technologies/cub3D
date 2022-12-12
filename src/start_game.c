@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:05:55 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/12/07 17:33:58 by llima-ce         ###   ########.fr       */
+/*   Updated: 2022/12/12 19:22:00 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	img_init(char *name, void *mlx, t_img *img)
 	if (img->img_ptr == NULL)
 		return(custom_error("failed to load sprites", 520));
 	img->dump = mlx_get_data_addr(img->img_ptr, &img->bpp, &img->size_l, &img->endian);
+	printf("%i , %i, %i, %i\n", img->dump[0],img->dump[1],img->dump[2],img->dump[3]);
 	return (0);
 }
 
