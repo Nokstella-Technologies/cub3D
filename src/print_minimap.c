@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:51:21 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/12/08 10:47:33 by llima-ce         ###   ########.fr       */
+/*   Updated: 2022/12/12 18:36:23 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ void	drawRays2D(t_game *game)
 			rx=(((int)game->hero->px>>6)<<6)+64;
 			ry=(game->hero->px-rx)*Tan+game->hero->py; xo= 64;
 			yo=-xo*Tan;
-			eyeV = 'W';
+			eyeV = 'E';
 		}//looking left
 		else if (cos(deg_to_rad(ra)) < -0.001)
 		{
 			rx=(((int)game->hero->px>>6)<<6) -0.0001;
 			ry=(game->hero->px-rx)*Tan+game->hero->py; xo=-64;
 			yo=-xo*Tan;
-			eyeV = 'E';
+			eyeV = 'W';
 		}//looking right
 		else
 		{
@@ -80,7 +80,7 @@ void	drawRays2D(t_game *game)
 		{
 			ry = (((int)game->hero->py>>6)<<6) + 64;
 			rx = (game->hero->py - ry) * Tan + game->hero->px;
-			yo= 64; xo = -yo * Tan;
+			yo = 64; xo = -yo * Tan;
 			eyeH = 'S';
 		}//looking down
 		else
@@ -121,8 +121,6 @@ void	drawRays2D(t_game *game)
 		int ca = fix_ang(game->hero->pa - ra);
 		disH = disH * cos(deg_to_rad(ca));//fix fisheye 
 		int lineH = (MAP_S*600)/(disH);
-		if (lineH>600)
-			lineH=600;
 		double	ty_step=64.0/(float)lineH;
 		float ty_off = 0;
 		if(lineH>600)
@@ -143,30 +141,29 @@ void	drawRays2D(t_game *game)
 		double	tx;
 		if (shade==1)
 		{
-			tx = (int)(rx/2.0);
-			tx = (int)tx%64;
-			if (ra > 300)
+			tx = (int)(rx )% 64;
+			if (ra > 180)
 				tx = 63 - tx;
 		}
 		else
 		{
-			tx = (int)(ry/2.0)%64;
+			tx = (int)(ry)%64;
 			if (ra>90 && ra<270)
 				tx = 63-tx;
 		}
 		for (y=0;y<lineH;y++)
 		{
-			int	color = (int)(ty) * 64 * 4 + (int)(tx) * 4;
+			int	color = ((int)(ty) * 64 + (int)(tx)) * 4;
 			if (eyeH == 'N')
 				color = create_trgb(shade,(int) game->sprite->no->dump[color],(int) game->sprite->no->dump[color + 1], (int)game->sprite->no->dump[color + 2]);
 			if (eyeH == 'E')
-				color =  create_trgb(shade, game->sprite->ea->dump[color], game->sprite->ea->dump[color + 1], game->sprite->ea->dump[color + 2]);
+				color =  create_trgb(1, game->sprite->ea->dump[color], game->sprite->ea->dump[color + 1], game->sprite->ea->dump[color + 2]);
 			if (eyeH == 'W')
 				color =  create_trgb(shade, game->sprite->we->dump[color], game->sprite->we->dump[color + 1], game->sprite->we->dump[color + 2]);
 			if (eyeH == 'S')
 				color =  create_trgb(shade, game->sprite->so->dump[color], game->sprite->so->dump[color + 1], game->sprite->so->dump[color + 2]);
 			my_mlx_pixel_put(game->img, r, lineOff + y, color);
-			ty+=ty_step;
+			ty += ty_step;
 		}
 		ra = fix_ang(ra - 0.075);//go to next ray
 	}
