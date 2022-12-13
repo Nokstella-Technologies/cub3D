@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 02:01:40 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/12/12 19:24:24 by llima-ce         ###   ########.fr       */
+/*   Updated: 2022/12/13 16:02:16 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,17 @@ void	square(t_game *game, int x, int y, int color)
 	int	j;
 
 	i = -1;
-	while (++i < 64)
+	while (++i < 20)
 	{
 		j = -1;
-		while (++j < 64)
+		while (++j < 20)
 		{
-			if (i == 0 || i == 64)
-				mlx_pixel_put(game->mlx, game->win, x + i, y + j, 0x000000);
-			else if (j == 0 || j == 64) 
-				mlx_pixel_put(game->mlx, game->win, x + i, y + j, 0x000000);
+			if (i == 0 || i == 20)
+				my_mlx_pixel_put(game->img, x + i, y + j, 0x000000);
+			else if (j == 0 || j == 20) 
+				my_mlx_pixel_put(game->img, x + i, y + j, 0x000000);
 			else
-				mlx_pixel_put(game->mlx, game->win, x + i, y + j, color);
+				my_mlx_pixel_put(game->img, x + i, y + j, color);
 		}
 	}
 }
