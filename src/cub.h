@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 17:22:02 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/12/13 15:58:18 by llima-ce         ###   ########.fr       */
+/*   Updated: 2023/01/06 11:14:38 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,14 @@ typedef struct	s_game {
 	t_move		*move;
 	int			err;
 }			t_game;
+
+
+typedef struct	s_ray {
+	int		r,mx,my,mp,dof;
+	float	rx,ry,ra,xo,yo,vx,vy,dis_v,dis_h,tan;
+	char	eye_v, eye_h;
+}			t_ray;
+
 
 t_game	*read_map(char **argv);
 int		custom_error(char *error, int err);

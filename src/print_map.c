@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:51:21 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/12/13 15:58:06 by llima-ce         ###   ########.fr       */
+/*   Updated: 2023/01/06 11:21:11 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,113 +14,114 @@
 
 void	drawRays2D(t_game *game)
 {
-	int		r,mx,my,mp,dof;
-	float	rx,ry,ra,xo = 0,yo = 0,vx,vy,disV,disH;
-	char	eyeV, eyeH;
+	t_ray	ray;
 
-	ra = fix_ang(game->hero->pa + 30);
-	for (r = 0; r < 800; r++)
+	ray.ra = fix_ang(game->hero->pa + 35);
+	ray.xo = 0;
+	ray.yo = 0;
+	ray.r = -1;
+	while (++ray.r < 800)
 	{
-		dof=0; 
-		disV=100000;
-		float Tan = tan(deg_to_rad(ra));
-		if (cos(deg_to_rad(ra)) > 0.001)
+		ray.dof=0; 
+		ray.dis_v=100000;
+		ray.tan = tan(deg_to_rad(ray.ra));
+		if (cos(deg_to_rad(ray.ra)) > 0.001)
 		{
-			rx=(((int)game->hero->px>>6)<<6)+64;
-			ry=(game->hero->px-rx)*Tan+game->hero->py; xo= 64;
-			yo=-xo*Tan;
-			eyeV = 'E';
+			ray.rx=(((int)game->hero->px>>6)<<6)+64;
+			ray.ry=(game->hero->px-ray.rx)*ray.tan+game->hero->py; ray.xo= 64;
+			ray.yo=-ray.xo*ray.tan;
+			ray.eye_v = 'E';
 		}//looking left
-		else if (cos(deg_to_rad(ra)) < -0.001)
+		else if (cos(deg_to_rad(ray.ra)) < -0.001)
 		{
-			rx=(((int)game->hero->px>>6)<<6) -0.0001;
-			ry=(game->hero->px-rx)*Tan+game->hero->py; xo=-64;
-			yo=-xo*Tan;
-			eyeV = 'W';
+			ray.rx=(((int)game->hero->px>>6)<<6) -0.0001;
+			ray.ry=(game->hero->px-ray.rx)*ray.tan+game->hero->py; ray.xo=-64;
+			ray.yo=-ray.xo*ray.tan;
+			ray.eye_v = 'W';
 		}//looking right
 		else
 		{
-			rx=game->hero->px;
-			ry=game->hero->py;
-			dof = game->cmap->map_x;
+			ray.rx=game->hero->px;
+			ray.ry=game->hero->py;
+			ray.dof = game->cmap->map_x;
 		}//looking up or down. no hit  
-		while(dof < game->cmap->map_x || dof < game->cmap->map_y)
+		while(ray.dof < game->cmap->map_x || ray.dof < game->cmap->map_y)
 		{
-			mx = (int)(rx)>>6;
-			my = (int)(ry)>>6;
-			mp=my*game->cmap->map_x+mx;
-			// ft_printf("horizontal mx = %d my = %d mp = %d\n",mx,my,mp);
-			if (mp > 0 && my >= 0 && my < game->cmap->map_y && mx >= 0 && mx < game->cmap->map_x && game->cmap->map[my][mx] == '1')
+			ray.mx = (int)(ray.rx)>>6;
+			ray.my = (int)(ray.ry)>>6;
+			ray.mp=ray.my*game->cmap->map_x+ray.mx;
+			// ft_printf("horizontal ray.mx = %d ray.my = %d ray.mp = %d\n",ray.mx,ray.my,ray.mp);
+			if (ray.mp > 0 && ray.my >= 0 && ray.my < game->cmap->map_y && ray.mx >= 0 && ray.mx < game->cmap->map_x && game->cmap->map[ray.my][ray.mx] == '1')
 			{
-				dof = game->cmap->map_x;
-				disV = cos(deg_to_rad(ra)) * (rx - game->hero->px) - sin(deg_to_rad(ra)) * (ry - game->hero->py);
+				ray.dof = game->cmap->map_x;
+				ray.dis_v = cos(deg_to_rad(ray.ra)) * (ray.rx - game->hero->px) - sin(deg_to_rad(ray.ra)) * (ray.ry - game->hero->py);
 			}
 			else
 			{
-				rx += xo;
-				ry += yo;
-				dof += 1;
+				ray.rx += ray.xo;
+				ray.ry += ray.yo;
+				ray.dof += 1;
 			}     //check next horizontal
 		}
-		vx = rx;
-		vy = ry;
+		ray.vx = ray.rx;
+		ray.vy = ray.ry;
 		//---Horizontal---
-		dof = 0;
-		disH = 100000;
-		Tan = 1.0 / Tan;
-		if (sin(deg_to_rad(ra)) > 0.001)
+		ray.dof = 0;
+		ray.dis_h = 100000;
+		ray.tan = 1.0 / ray.tan;
+		if (sin(deg_to_rad(ray.ra)) > 0.001)
 		{
-			ry = (((int)game->hero->py>>6)<<6) - 0.0001;
-			rx = (game->hero->py - ry) * Tan + game->hero->px;
-			yo = - 64;
-			xo = -yo * Tan;
-			eyeH = 'N';
+			ray.ry = (((int)game->hero->py>>6)<<6) - 0.0001;
+			ray.rx = (game->hero->py - ray.ry) * ray.tan + game->hero->px;
+			ray.yo = - 64;
+			ray.xo = -ray.yo * ray.tan;
+			ray.eye_h = 'N';
 		}//looking up 
-		else if (sin(deg_to_rad(ra)) < -0.001)
+		else if (sin(deg_to_rad(ray.ra)) < -0.001)
 		{
-			ry = (((int)game->hero->py>>6)<<6) + 64;
-			rx = (game->hero->py - ry) * Tan + game->hero->px;
-			yo = 64; xo = -yo * Tan;
-			eyeH = 'S';
+			ray.ry = (((int)game->hero->py>>6)<<6) + 64;
+			ray.rx = (game->hero->py - ray.ry) * ray.tan + game->hero->px;
+			ray.yo = 64; ray.xo = -ray.yo * ray.tan;
+			ray.eye_h = 'S';
 		}//looking down
 		else
 		{
-			rx = game->hero->px;
-			ry = game->hero->py;
-			dof = game->cmap->map_y;
+			ray.rx = game->hero->px;
+			ray.ry = game->hero->py;
+			ray.dof = game->cmap->map_y;
 		}//looking straight left or right
-		while (dof < game->cmap->map_y)
+		while (ray.dof < game->cmap->map_y)
 		{
-			mx = (int)(rx)>>6;
-			my = (int)(ry)>>6;
-			mp=my*game->cmap->map_x+mx;
-			// ft_printf("vertical mx = %d my = %d mp = %d\n",mx,my,mp);
-			if (mp > 0 && my >= 0 && my < game->cmap->map_y && mx >= 0 && mx < game->cmap->map_x && game->cmap->map[my][mx] == '1')
+			ray.mx = (int)(ray.rx)>>6;
+			ray.my = (int)(ray.ry)>>6;
+			ray.mp=ray.my*game->cmap->map_x+ray.mx;
+			// ft_printf("vertical ray.mx = %d ray.my = %d ray.mp = %d\n",ray.mx,ray.my,ray.mp);
+			if (ray.mp > 0 && ray.my >= 0 && ray.my < game->cmap->map_y && ray.mx >= 0 && ray.mx < game->cmap->map_x && game->cmap->map[ray.my][ray.mx] == '1')
 			{
-				dof = game->cmap->map_y;
-				disH = cos(deg_to_rad(ra)) * (rx-game->hero->px) - sin(deg_to_rad(ra)) * (ry - game->hero->py);
+				ray.dof = game->cmap->map_y;
+				ray.dis_h = cos(deg_to_rad(ray.ra)) * (ray.rx-game->hero->px) - sin(deg_to_rad(ray.ra)) * (ray.ry - game->hero->py);
 			}//hit         
 			else
 			{
-				rx += xo;
-				ry += yo;
-				dof += 1;
+				ray.rx += ray.xo;
+				ray.ry += ray.yo;
+				ray.dof += 1;
 			}//check next horizontal
 		}
 
 		// calcula altura e tamanho para printar o raio de visao na tela
 		  float shade=1;
-		if (disV < disH)
+		if (ray.dis_v < ray.dis_h)
 		{
-			rx=vx;
-			ry=vy;
+			ray.rx=ray.vx;
+			ray.ry=ray.vy;
 			shade=0.5;
-			disH=disV;
-			eyeH=eyeV;
+			ray.dis_h=ray.dis_v;
+			ray.eye_h=ray.eye_v;
 		}
-		int ca = fix_ang(game->hero->pa - ra);
-		disH = disH * cos(deg_to_rad(ca));//fix fisheye 
-		int lineH = (MAP_S*600)/(disH);
+		int ca = fix_ang(game->hero->pa - ray.ra);
+		ray.dis_h = ray.dis_h * cos(deg_to_rad(ca));//fix fisheye 
+		int lineH = (MAP_S*600)/(ray.dis_h);
 		double	ty_step=64.0/(float)lineH;
 		float ty_off = 0;
 		if(lineH>600)
@@ -131,8 +132,8 @@ void	drawRays2D(t_game *game)
 		int lineOff = 300 - (lineH>>1);//line offset
 
 		
-		draw_line(game, (int [2]) {r, 0}, (int [2]){r, lineOff}, create_trgb(255, game->cmap->floor_c[0],  game->cmap->floor_c[1],  game->cmap->floor_c[2]));
-		draw_line(game, (int [2]) {r, lineOff + lineH}, (int [2]){r, 600},create_trgb(255, game->cmap->celling_c[0],  game->cmap->celling_c[1],  game->cmap->celling_c[2]));
+		draw_line(game, (int [2]) {ray.r, 0}, (int [2]){ray.r, lineOff}, create_trgb(255, game->cmap->floor_c[0],  game->cmap->floor_c[1],  game->cmap->floor_c[2]));
+		draw_line(game, (int [2]) {ray.r, lineOff + lineH}, (int [2]){ray.r, 600},create_trgb(255, game->cmap->celling_c[0],  game->cmap->celling_c[1],  game->cmap->celling_c[2]));
 		
 		
 		//draw vertical wall
@@ -141,31 +142,31 @@ void	drawRays2D(t_game *game)
 		double	tx;
 		if (shade==1)
 		{
-			tx = (int)(rx )% 64;
-			if (ra > 180)
+			tx = (int)(ray.rx )% 64;
+			if (ray.ra > 180)
 				tx = 63 - tx;
 		}
 		else
 		{
-			tx = (int)(ry)%64;
-			if (ra>90 && ra<270)
+			tx = (int)(ray.ry)%64;
+			if (ray.ra>90 && ray.ra<270)
 				tx = 63-tx;
 		}
 		for (y=0;y<lineH;y++)
 		{
 			int	color = ((int)(ty) * 64 + (int)(tx)) * 4;
-			if (eyeH == 'N')
+			if (ray.eye_h == 'N')
 				color = get_sprite_color(color, game->sprite->no->dump, shade);
-			if (eyeH == 'E')
+			if (ray.eye_h == 'E')
 				color = get_sprite_color(color, game->sprite->ea->dump, shade);
-			if (eyeH == 'W')
+			if (ray.eye_h == 'W')
 				color = get_sprite_color(color, game->sprite->we->dump, shade);
-			if (eyeH == 'S')
+			if (ray.eye_h == 'S')
 				color = get_sprite_color(color, game->sprite->so->dump, shade);
-			my_mlx_pixel_put(game->img, r, lineOff + y, color);
+			my_mlx_pixel_put(game->img, ray.r, lineOff + y, color);
 			ty += ty_step;
 		}
-		ra = fix_ang(ra - 0.075);//go to next ray
+		ray.ra = fix_ang(ray.ra - 0.0875);//go to next ray
 	}
 }
 
@@ -214,7 +215,7 @@ void	move_forward(t_game *game)
 			[game->hero->x] != '1')
 			game->hero->py += game->hero->pdy * MOVE_SP;
 	}
-	//move backwards if no wall behind you
+	//move backwards if no wall behind ray.you
 	if(game->move->s == TRUE)
 	{
 		if (game->cmap->map[game->hero->y]

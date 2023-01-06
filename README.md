@@ -14,10 +14,10 @@ map and are up to you to handle. You must be able to parse any kind of map,
 as long as it respects the rules of the map.
 
 
-[] abrir sprites e fazer verificacao se existem 
+[x] abrir sprites e fazer verificacao se existem 
 [] validacoes do mapa
 
-[] put sprites in the map.
+[x] put sprites in the map.
 
 [x] The left and right arrow keys of the keyboard must allow you to look left and
 right in the maze.
@@ -26,7 +26,7 @@ the maze.
 
 Bonus list:
 [x] Wall collisions.
-[] A minimap system.
+[x] A minimap system.
 [] Doors which can open and close.
 [] animated sprite.
 [] Rotate the point of view with the mouse.
