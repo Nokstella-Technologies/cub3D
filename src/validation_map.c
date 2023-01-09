@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:49:28 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/12/01 17:09:12 by llima-ce         ###   ########.fr       */
+/*   Updated: 2023/01/09 20:25:29 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int	statemets_validation_map(char **map, int a, int i, t_map *cmap)
 		&& map[a][i] != 'N' && map[a][i] != 'S' && map[a][i] != 'E'
 		&& map[a][i] != 'W')
 		return (INV_MAP);
-	if ((a == 0 || i == 0 || i == (int)(LEN(map[a]) - 1)
+	if ((a == 0 || i == 0 || i == (int)(ft_strlen(map[a]) - 1)
 		|| a == cmap->map_y - 1) && map[a][i] != ' ' && map[a][i] != '1')
 		return (INV_MAP);
 	// if (map[a][i] == '1')
@@ -77,7 +77,7 @@ void	validation_map_line(t_map *cmap, t_game *game)
 		if (game->err != 0)
 			break ;
 		i = -1;
-		while (++i < (int)LEN(cmap->map[a]))
+		while (++i < (int)ft_strlen(cmap->map[a]))
 		{
 			game->err = statemets_validation_map(cmap->map, a, i, cmap);
 			if (game->err != 0)

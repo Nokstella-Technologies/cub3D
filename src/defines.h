@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 15:34:31 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/12/12 20:45:31 by llima-ce         ###   ########.fr       */
+/*   Updated: 2023/01/09 20:24:12 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,10 @@
 # define INV_MAP 513
 # define GAME_LOAD 520
 
-# define LEN(str) ft_strlen(str)
 # define MAP_S 64
 # define PI 3.1415926535
-# define MOVE_SP 0.2 * 10.0
-# define ROT_SP 0.2 * 8.0
+# define MOVE_SP 1.5
+# define ROT_SP 0.8
 
 # define MAP_X 800
 # define MAP_Y 600

@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 15:42:43 by llima-ce          #+#    #+#             */
-/*   Updated: 2023/01/05 22:12:46 by llima-ce         ###   ########.fr       */
+/*   Updated: 2023/01/09 20:25:02 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	draw_mini_map(t_game *game, int a, int b)
 		b = game->hero->x - 5;
 		while (a >= 0 && a < game->cmap->map_y && b++ < game->hero->x + 4)
 		{
-			if(b >= 0 && b < (int)LEN(game->cmap->map[a]))
+			if(b >= 0 && b < (int)ft_strlen(game->cmap->map[a]))
 			{
 				if(game->hero->y == a && game->hero->x == b)
 					square(game, x, y, 0xFADA00);
