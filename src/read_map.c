@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:46:08 by llima-ce          #+#    #+#             */
-/*   Updated: 2023/01/10 11:12:23 by llima-ce         ###   ########.fr       */
+/*   Updated: 2023/01/10 11:40:30 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static int	validation_loop(int fd, t_game *game)
 
 	tmp = get_next_line(fd);
 	err = 1;
-	while(tmp != NULL)
+	while (tmp != NULL)
 	{
 		if (game->err != 0)
 			break ;

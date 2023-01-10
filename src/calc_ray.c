@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 11:15:10 by llima-ce          #+#    #+#             */
-/*   Updated: 2023/01/10 11:15:36 by llima-ce         ###   ########.fr       */
+/*   Updated: 2023/01/10 11:23:09 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	horizontal_ray_check(t_game *game, t_ray *ray)
 	if (cos(deg_to_rad(ray->ra)) > 0.001)
 	{
 		ray->rx = (((int)game->hero->px >> 6) << 6) + 64;
-		ray->ry = (game->hero->px-ray->rx) * ray->tan + game->hero->py;
+		ray->ry = (game->hero->px - ray->rx) * ray->tan + game->hero->py;
 		ray->xo = 64;
 		ray->yo = -ray->xo * ray->tan;
 		ray->eye_v = 'E';
@@ -25,7 +25,7 @@ void	horizontal_ray_check(t_game *game, t_ray *ray)
 	else if (cos(deg_to_rad(ray->ra)) < -0.001)
 	{
 		ray->rx = (((int)game->hero->px >> 6) << 6) - 0.0001;
-		ray->ry = (game->hero->px-ray->rx) * ray->tan + game->hero->py;
+		ray->ry = (game->hero->px - ray->rx) * ray->tan + game->hero->py;
 		ray->xo = -64;
 		ray->yo = -ray->xo * ray->tan;
 		ray->eye_v = 'W';
@@ -47,7 +47,7 @@ void	vertical_ray_check(t_game *game, t_ray *ray)
 		ray->yo = -64;
 		ray->xo = -ray->yo * ray->tan;
 		ray->eye_h = 'N';
-	}//looking up 
+	}
 	else if (sin(deg_to_rad(ray->ra)) < -0.001)
 	{
 		ray->ry = (((int)game->hero->py >> 6) << 6) + 64;
@@ -55,24 +55,24 @@ void	vertical_ray_check(t_game *game, t_ray *ray)
 		ray->yo = 64;
 		ray->xo = -ray->yo * ray->tan;
 		ray->eye_h = 'S';
-	}//looking down	
+	}
 	else
 	{
 		ray->rx = game->hero->px;
 		ray->ry = game->hero->py;
 		ray->dof = game->cmap->map_y;
-	}//looking straight left or right
+	}
 }
 
 void	horizontal_ray_dist(t_game *game, t_ray *ray)
 {
-	while(ray->dof < game->cmap->map_x || ray->dof < game->cmap->map_y)
+	while (ray->dof < game->cmap->map_x || ray->dof < game->cmap->map_y)
 	{
 		ray->mx = (int)(ray->rx) >> 6;
 		ray->my = (int)(ray->ry) >> 6;
 		ray->mp = ray->my * game->cmap->map_x + ray->mx;
-		if (ray->mp > 0 && ray->my >= 0 && ray->my < game->cmap->map_y 
-			&& ray->mx >= 0 && ray->mx < game->cmap->map_x 
+		if (ray->mp > 0 && ray->my >= 0 && ray->my < game->cmap->map_y
+			&& ray->mx >= 0 && ray->mx < game->cmap->map_x
 			&& game->cmap->map[ray->my][ray->mx] == '1')
 		{
 			ray->dof = game->cmap->map_x;
@@ -88,19 +88,19 @@ void	horizontal_ray_dist(t_game *game, t_ray *ray)
 	}
 }
 
-void vertical_ray_dist(t_game *game, t_ray *ray)
+void	vertical_ray_dist(t_game *game, t_ray *ray)
 {
 	while (ray->dof < game->cmap->map_y)
 	{
 		ray->mx = (int)(ray->rx) >> 6;
 		ray->my = (int)(ray->ry) >> 6;
-		ray->mp=ray->my*game->cmap->map_x+ray->mx;
+		ray->mp = ray->my * game->cmap->map_x + ray->mx;
 		if (ray->mp > 0 && ray->my >= 0 && ray->my < game->cmap->map_y
 			&& ray->mx >= 0 && ray->mx < game->cmap->map_x
 			&& game->cmap->map[ray->my][ray->mx] == '1')
 		{
 			ray->dof = game->cmap->map_y;
-			ray->dis_h = cos(deg_to_rad(ray->ra)) * (ray->rx-game->hero->px)
+			ray->dis_h = cos(deg_to_rad(ray->ra)) * (ray->rx - game->hero->px)
 				- sin(deg_to_rad(ray->ra)) * (ray->ry - game->hero->py);
 		}
 		else
@@ -112,7 +112,7 @@ void vertical_ray_dist(t_game *game, t_ray *ray)
 	}
 }
 
-void calculate_ray_wall_height(t_game *game,t_ray *ray, t_ray_print *draws)
+void	calculate_ray_wall_height(t_game *game, t_ray *ray, t_ray_print *draws)
 {
 	draws->shade = 1;
 	if (ray->dis_v < ray->dis_h)
@@ -130,8 +130,8 @@ void calculate_ray_wall_height(t_game *game,t_ray *ray, t_ray_print *draws)
 	draws->ty_off = 0;
 	if (draws->line_h > 600)
 	{
-		draws->ty_off = (draws->line_h-600) / 2.0;
+		draws->ty_off = (draws->line_h - 600) / 2.0;
 		draws->line_h = 600;
 	}
-	draws->line_off = 300 - (draws->line_h>>1);
+	draws->line_off = 300 - (draws->line_h >> 1);
 }

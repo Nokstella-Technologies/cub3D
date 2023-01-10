@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 17:22:02 by llima-ce          #+#    #+#             */
-/*   Updated: 2023/01/10 11:05:01 by llima-ce         ###   ########.fr       */
+/*   Updated: 2023/01/10 11:39:33 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		create_trgb(int t, int r, int g, int b);
 float	deg_to_rad(float a);
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 int		get_sprite_color(int pixel, char *sprite, int shade);
-void	draw_mini_map(t_game *game, int a, int b);
+void	draw_mini_map(t_game *game, int a, int b, int y);
 void	horizontal_ray_check(t_game *game, t_ray *ray);
 void	vertical_ray_check(t_game *game, t_ray *ray);
 void	horizontal_ray_dist(t_game *game, t_ray *ray);

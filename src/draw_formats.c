@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 02:01:40 by llima-ce          #+#    #+#             */
-/*   Updated: 2023/01/10 11:16:27 by llima-ce         ###   ########.fr       */
+/*   Updated: 2023/01/10 11:33:23 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 	char	*dst;
 
 	dst = data->dump + (y * data->size_l + x * (data->bpp / 8));
-	*(unsigned int*)dst = color;
+	*(unsigned int *)dst = color;
 }
 
 int	create_trgb(int t, int r, int g, int b)
@@ -38,7 +38,7 @@ void	square(t_game *game, int x, int y, int color)
 		{
 			if (i == 0 || i == 20)
 				my_mlx_pixel_put(game->img, x + i, y + j, 0x000000);
-			else if (j == 0 || j == 20) 
+			else if (j == 0 || j == 20)
 				my_mlx_pixel_put(game->img, x + i, y + j, 0x000000);
 			else
 				my_mlx_pixel_put(game->img, x + i, y + j, color);
@@ -52,7 +52,7 @@ int	draw_line(t_game *game, int begin[2], int end[2], int color)
 	int		pixels;
 	double	pixel[2];
 
-	delta[0] = end[0] - begin[0]; 
+	delta[0] = end[0] - begin[0];
 	delta[1] = end[1] - begin[1];
 	pixels = sqrt((delta[0] * delta[0]) + (delta[1] * delta[1]));
 	delta[0] /= pixels;

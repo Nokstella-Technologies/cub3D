@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 15:34:31 by llima-ce          #+#    #+#             */
-/*   Updated: 2023/01/10 10:51:27 by llima-ce         ###   ########.fr       */
+/*   Updated: 2023/01/10 11:28:20 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@
 
 # define MAP_S 64
 # define PI 3.1415926535
-# define MOVE_SP 0.2 * 10.0
-# define ROT_SP 0.2 * 8.0
+# define MOVE_SP 2.0
+# define ROT_SP 1.6
 
 # define MAP_X 800
 # define MAP_Y 600

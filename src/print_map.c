@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:51:21 by llima-ce          #+#    #+#             */
-/*   Updated: 2023/01/10 11:18:11 by llima-ce         ###   ########.fr       */
+/*   Updated: 2023/01/10 11:39:46 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	print_mini_map(t_game *game)
 {
 
 	drawRays2D(game);
-	draw_mini_map(game, 10, 10);
+	draw_mini_map(game, 10, 10, 10);
 	mlx_put_image_to_window(game->mlx, game->win, game->img->img_ptr, 0, 0);
 	move_player(game);
 	game->hero->x = (int) game->hero->px / MAP_S;

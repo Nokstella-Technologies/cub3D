@@ -6,12 +6,11 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:49:28 by llima-ce          #+#    #+#             */
-/*   Updated: 2023/01/10 11:12:56 by llima-ce         ###   ########.fr       */
+/*   Updated: 2023/01/10 11:27:16 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-
 
 // static int validation_wall(char **map, int a, int i, t_map *cmap)
 // {
@@ -22,7 +21,6 @@
 // 		|| (a == cmap->map_y - 1 && i == (int)(LEN(map[a]) - 1)
 // 		&& map[a - 1][i] != '1' && map[a][i - 1] != '1'))
 // 		return (INV_MAP);
-
 // 	return (0);
 // }
 
@@ -58,11 +56,9 @@ static int	statemets_validation_map(char **map, int a, int i, t_map *cmap)
 	if ((a == 0 || i == 0 || i == (int)(ft_strlen(map[a]) - 1)
 		|| a == cmap->map_y - 1) && map[a][i] != ' ' && map[a][i] != '1')
 		return (INV_MAP);
-	// if (map[a][i] == '1')
-	// 	return (validation_wall(map, a, i, cmap));
 	if (map[a][i] == 'N' || map[a][i] == 'S' || map[a][i] == 'E'
 		|| map[a][i] == 'W')
-		return(hero_map(map[a][i], a, i, cmap));
+		return (hero_map(map[a][i], a, i, cmap));
 	return (0);
 }
 

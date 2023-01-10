@@ -6,12 +6,11 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 11:17:17 by llima-ce          #+#    #+#             */
-/*   Updated: 2023/01/10 11:17:58 by llima-ce         ###   ########.fr       */
+/*   Updated: 2023/01/10 11:42:08 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-
 
 void	cam_rotation(t_game *game)
 {
@@ -26,12 +25,12 @@ void	cam_rotation(t_game *game)
 	{
 		game->hero->pa += ROT_SP;
 		game->hero->pa = fix_ang(game->hero->pa);
-		game->hero->pdx = cos(deg_to_rad(game->hero->pa)); 
-		game->hero->pdy=-sin(deg_to_rad(game->hero->pa));
+		game->hero->pdx = cos(deg_to_rad(game->hero->pa));
+		game->hero->pdy = -sin(deg_to_rad(game->hero->pa));
 	}
 }
 
-int	collision(float p,float pd, t_bool is_sub)
+int	collision(float p, float pd, t_bool is_sub)
 {
 	int	o;
 
