@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:05:55 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/12/12 20:43:20 by llima-ce         ###   ########.fr       */
+/*   Updated: 2023/01/10 11:13:02 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	img_init(char *name, void *mlx, t_img *img)
 int	key_release(int keycode, t_game *game)
 {
 	if (keycode == KEY_ESC)
-		clean_all(game);
+		close_all(game);
 	if (keycode == KEY_W)
 		game->move->w = FALSE;
 	if (keycode == KEY_S)
@@ -104,7 +104,7 @@ void	start_game(t_game *game)
 	if(!game->mlx || !game->win)
 	{
 		game->err = custom_error("failed to open the screen", 520);
-		clean_all(game);
+		close_all(game);
 	}
 	init_sprites(game);
 	img.img_ptr = mlx_new_image(game->mlx, MAP_X, MAP_Y);
@@ -112,6 +112,6 @@ void	start_game(t_game *game)
 	game->img = &img;
 	game->hero = game->cmap->hero;
 	if (game->err != 0)
-		clean_all(game);
+		close_all(game);
 	loop(game);
 }

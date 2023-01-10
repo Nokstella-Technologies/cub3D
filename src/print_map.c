@@ -6,21 +6,19 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:51:21 by llima-ce          #+#    #+#             */
-/*   Updated: 2023/01/09 20:10:07 by llima-ce         ###   ########.fr       */
+/*   Updated: 2023/01/10 11:18:11 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
 
-void	draw_floor_celing(t_game *game, t_ray *ray,t_ray_print *draws)
+void draw_floor_celing(t_game *game, t_ray *ray,t_ray_print *draws)
 {
-	draw_line(game, (int [2]) {ray->r, 0}, (int [2]){ray->r, draws->line_off},
-	create_trgb(255, game->cmap->floor_c[0], game->cmap->floor_c[1],
-	game->cmap->floor_c[2]));
-	draw_line(game, (int [2]) {ray->r, draws->line_off + draws->line_h},
-	(int [2]) { ray->r, MAP_Y}, create_trgb(255, game->cmap->celling_c[0],
-	game->cmap->celling_c[1],  game->cmap->celling_c[2]));
+
+	draw_line(game, (int [2]) {ray->r, 0}, (int [2]){ray->r, draws->line_off}, create_trgb(255, game->cmap->floor_c[0],  game->cmap->floor_c[1],  game->cmap->floor_c[2]));
+	draw_line(game, (int [2]) {ray->r, draws->line_off + draws->line_h}, (int [2]){ray->r, 600},create_trgb(255, game->cmap->celling_c[0],  game->cmap->celling_c[1],  game->cmap->celling_c[2]));
+	
 }
 
 void	draw_wall(t_game *game, t_ray *ray, t_ray_print *draws)
@@ -62,7 +60,7 @@ void	draw_wall(t_game *game, t_ray *ray, t_ray_print *draws)
 		}
 }
 
-void	draw_player_view(t_game *game)
+void	drawRays2D(t_game *game)
 {
 	t_ray_print	draws;
 	t_ray		ray;
@@ -71,13 +69,15 @@ void	draw_player_view(t_game *game)
 	ray.xo = 0;
 	ray.yo = 0;
 	ray.r = -1;
-	while (++ray.r < MAP_X)
+	while (++ray.r < 800)
 	{
 		ray.dof=0; 
 		ray.dis_v=100000;
 		ray.tan = tan(deg_to_rad(ray.ra));
 		horizontal_ray_check(game, &ray);
 		horizontal_ray_dist(game, &ray);
+		ray.vx = ray.rx;
+		ray.vy = ray.ry;
 		ray.dof = 0;
 		ray.dis_h = 100000;
 		ray.tan = 1.0 / ray.tan;
@@ -90,14 +90,17 @@ void	draw_player_view(t_game *game)
 	}
 }
 
+
+
 int	print_mini_map(t_game *game)
 {
-	move(game);
+
+	drawRays2D(game);
+	draw_mini_map(game, 10, 10);
+	mlx_put_image_to_window(game->mlx, game->win, game->img->img_ptr, 0, 0);
+	move_player(game);
 	game->hero->x = (int) game->hero->px / MAP_S;
 	game->hero->y = (int) game->hero->py / MAP_S;
 	cam_rotation(game);
-	draw_player_view(game);
-	draw_mini_map(game, 10, 10);
-	mlx_put_image_to_window(game->mlx, game->win, game->img->img_ptr, 0, 0);
 	return (0);
 }

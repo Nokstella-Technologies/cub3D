@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 17:22:02 by llima-ce          #+#    #+#             */
-/*   Updated: 2023/01/09 20:22:55 by llima-ce         ###   ########.fr       */
+/*   Updated: 2023/01/10 11:05:01 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 t_game	*read_map(char **argv);
 int		custom_error(char *error, int err);
 void	free_ptr(void **ptr);
-void	clean_all(t_game *game);
+void	clean_all(t_game *game, int err);
 int		verify_sprite_color(char *line, t_map *map);
 void	validation_map_line(t_map *cmap, t_game *game);
 void	start_game(t_game *game);
@@ -47,6 +47,6 @@ void	horizontal_ray_dist(t_game *game, t_ray *ray);
 void	vertical_ray_dist(t_game *game, t_ray *ray);
 void	calculate_ray_wall_height(t_game *game, t_ray *ray, t_ray_print *draws);
 void	cam_rotation(t_game *game);
-void	move(t_game *game);
-
+void	move_player(t_game *game);
+int		get_color_t(int trgb, char type);
 #endif

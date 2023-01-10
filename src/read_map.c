@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:46:08 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/12/01 00:32:31 by llima-ce         ###   ########.fr       */
+/*   Updated: 2023/01/10 11:12:23 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,6 @@ t_game	*read_map(char **argv)
 	else if (validation_loop(fd, game) == 0)
 		validation_map_line(game->cmap, game);
 	if (game->err != 0)
-		clean_all(game);
+		close_all(game);
 	return (game);
 }

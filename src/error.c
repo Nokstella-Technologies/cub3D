@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 17:01:58 by llima-ce          #+#    #+#             */
-/*   Updated: 2022/12/01 21:28:55 by llima-ce         ###   ########.fr       */
+/*   Updated: 2023/01/10 11:11:23 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,12 @@ int	custom_error(char *error, int err)
 
 int		close_all(t_game *game)
 {
-	clean_all(game);
+	clean_all(game, game->err);
 	return(0);
 }
 
-void	clean_all(t_game *game)
+void	clean_all(t_game *game, int err)
 {
-	int	err;
-
-	err = game->err;
 	free_ptr((void **)&game->cmap->no);
 	free_ptr((void **)&game->cmap->so);
 	free_ptr((void **)&game->cmap->we);

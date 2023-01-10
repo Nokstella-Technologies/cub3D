@@ -5,12 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/09 20:05:29 by llima-ce          #+#    #+#             */
-/*   Updated: 2023/01/09 20:13:02 by llima-ce         ###   ########.fr       */
+/*   Created: 2023/01/10 11:17:17 by llima-ce          #+#    #+#             */
+/*   Updated: 2023/01/10 11:17:58 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+
 
 void	cam_rotation(t_game *game)
 {
@@ -30,7 +31,7 @@ void	cam_rotation(t_game *game)
 	}
 }
 
-static int	collision(float p,float pd, t_bool is_sub)
+int	collision(float p,float pd, t_bool is_sub)
 {
 	int	o;
 
@@ -44,9 +45,8 @@ static int	collision(float p,float pd, t_bool is_sub)
 		return ((int)((p/MAP_S + (pd+o)/ MAP_S)));
 }
 
-static void	move_forward_back(t_game *game)
+void	move_player(t_game *game)
 {
-	
 	if(game->move->w == TRUE)
 	{
 		if (game->cmap->map[game->hero->y]
@@ -57,6 +57,7 @@ static void	move_forward_back(t_game *game)
 			[game->hero->x] != '1')
 			game->hero->py += game->hero->pdy * MOVE_SP;
 	}
+	//move backwards if no wall behind ray.you
 	if(game->move->s == TRUE)
 	{
 		if (game->cmap->map[game->hero->y]
@@ -67,11 +68,6 @@ static void	move_forward_back(t_game *game)
 			[game->hero->x] != '1')
 			game->hero->py -= game->hero->pdy * MOVE_SP;
 	}
-}
-
-static void	move_left_right(t_game *game)
-{
-	
 	if(game->move->d == TRUE)
 	{
 		if (game->cmap->map[game->hero->y]
@@ -92,10 +88,4 @@ static void	move_left_right(t_game *game)
 			[game->hero->x] != '1')
 			game->hero->py -= game->hero->pdx  * MOVE_SP;
 	}
-}
-
-void	move(t_game *game)
-{
-	move_forward_back(game);
-	move_left_right(game);
 }
