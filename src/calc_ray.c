@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 11:15:10 by llima-ce          #+#    #+#             */
-/*   Updated: 2023/01/10 11:23:09 by llima-ce         ###   ########.fr       */
+/*   Updated: 2023/01/10 17:43:10 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,24 @@ void	horizontal_ray_check(t_game *game, t_ray *ray)
 {
 	if (cos(deg_to_rad(ray->ra)) > 0.001)
 	{
-		ray->rx = (((int)game->hero->px >> 6) << 6) + 64;
-		ray->ry = (game->hero->px - ray->rx) * ray->tan + game->hero->py;
+		ray->vx = (((int)game->hero->px >> 6) << 6) + 64;
+		ray->vy = (game->hero->px - ray->vx) * ray->tan + game->hero->py;
 		ray->xo = 64;
 		ray->yo = -ray->xo * ray->tan;
 		ray->eye_v = 'E';
 	}
 	else if (cos(deg_to_rad(ray->ra)) < -0.001)
 	{
-		ray->rx = (((int)game->hero->px >> 6) << 6) - 0.0001;
-		ray->ry = (game->hero->px - ray->rx) * ray->tan + game->hero->py;
+		ray->vx = (((int)game->hero->px >> 6) << 6) - 0.0001;
+		ray->vy = (game->hero->px - ray->vx) * ray->tan + game->hero->py;
 		ray->xo = -64;
 		ray->yo = -ray->xo * ray->tan;
 		ray->eye_v = 'W';
 	}
 	else
 	{
-		ray->rx = game->hero->px;
-		ray->ry = game->hero->py;
+		ray->vx = game->hero->px;
+		ray->vy = game->hero->py;
 		ray->dof = game->cmap->map_x;
 	}
 }
@@ -68,21 +68,21 @@ void	horizontal_ray_dist(t_game *game, t_ray *ray)
 {
 	while (ray->dof < game->cmap->map_x || ray->dof < game->cmap->map_y)
 	{
-		ray->mx = (int)(ray->rx) >> 6;
-		ray->my = (int)(ray->ry) >> 6;
+		ray->mx = (int)(ray->vx) >> 6;
+		ray->my = (int)(ray->vy) >> 6;
 		ray->mp = ray->my * game->cmap->map_x + ray->mx;
 		if (ray->mp > 0 && ray->my >= 0 && ray->my < game->cmap->map_y
 			&& ray->mx >= 0 && ray->mx < game->cmap->map_x
 			&& game->cmap->map[ray->my][ray->mx] == '1')
 		{
 			ray->dof = game->cmap->map_x;
-			ray->dis_v = cos(deg_to_rad(ray->ra)) * (ray->rx - game->hero->px)
-				- sin(deg_to_rad(ray->ra)) * (ray->ry - game->hero->py);
+			ray->dis_v = cos(deg_to_rad(ray->ra)) * (ray->vx - game->hero->px)
+				- sin(deg_to_rad(ray->ra)) * (ray->vy - game->hero->py);
 		}
 		else
 		{
-			ray->rx += ray->xo;
-			ray->ry += ray->yo;
+			ray->vx += ray->xo;
+			ray->vy += ray->yo;
 			ray->dof += 1;
 		}
 	}

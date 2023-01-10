@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 17:22:02 by llima-ce          #+#    #+#             */
-/*   Updated: 2023/01/10 11:39:33 by llima-ce         ###   ########.fr       */
+/*   Updated: 2023/01/10 17:33:15 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,5 @@ void	calculate_ray_wall_height(t_game *game, t_ray *ray, t_ray_print *draws);
 void	cam_rotation(t_game *game);
 void	move_player(t_game *game);
 int		get_color_t(int trgb, char type);
+void	init_sprites(t_game *game);
 #endif

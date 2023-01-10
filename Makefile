@@ -6,7 +6,7 @@
 #    By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/22 16:11:34 by prafael-          #+#    #+#              #
-#    Updated: 2023/01/10 08:16:15 by llima-ce         ###   ########.fr        #
+#    Updated: 2023/01/10 17:33:43 by llima-ce         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ MINILIBX = ./lib/minilibx/libmlx_Linux.a
 SRC =	main.c read_map.c error.c read_map_utils.c validation_map.c \
 		print_map.c start_game.c math_utils.c draw_formats.c \
 		print_minimap_bonus.c calc_ray.c player_moves.c get_color.c \
+		init_sprites.c
 
 OBJ = $(SRC:.c=.o)
 

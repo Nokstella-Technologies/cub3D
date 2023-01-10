@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 11:17:17 by llima-ce          #+#    #+#             */
-/*   Updated: 2023/01/10 11:42:08 by llima-ce         ###   ########.fr       */
+/*   Updated: 2023/01/10 17:32:22 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ int	collision(float p, float pd, t_bool is_sub)
 	else
 		o = 20;
 	if (is_sub == TRUE)
-		return ((int)((p/MAP_S + (pd-o)/ MAP_S)));
+		return ((int)((p / MAP_S + (pd - o) / MAP_S)));
 	else
-		return ((int)((p/MAP_S + (pd+o)/ MAP_S)));
+		return ((int)((p / MAP_S + (pd + o) / MAP_S)));
 }
 
-void	move_player(t_game *game)
+void	move_front_back(t_game *game)
 {
-	if(game->move->w == TRUE)
+	if (game->move->w == TRUE)
 	{
 		if (game->cmap->map[game->hero->y]
 			[collision(game->hero->px, game->hero->pdx, FALSE)]
@@ -56,8 +56,7 @@ void	move_player(t_game *game)
 			[game->hero->x] != '1')
 			game->hero->py += game->hero->pdy * MOVE_SP;
 	}
-	//move backwards if no wall behind ray.you
-	if(game->move->s == TRUE)
+	if (game->move->s == TRUE)
 	{
 		if (game->cmap->map[game->hero->y]
 			[collision(game->hero->px, game->hero->pdx, TRUE)]
@@ -67,24 +66,33 @@ void	move_player(t_game *game)
 			[game->hero->x] != '1')
 			game->hero->py -= game->hero->pdy * MOVE_SP;
 	}
-	if(game->move->d == TRUE)
+}
+
+void	move_right_left(t_game *game)
+{
+	if (game->move->d == TRUE)
 	{
 		if (game->cmap->map[game->hero->y]
-			[collision(game->hero->px, game->hero->pdy, TRUE)]
-			!= '1')
-			game->hero->px -= game->hero->pdy  *  MOVE_SP;
+			[collision(game->hero->px, game->hero->pdy, TRUE)] != '1')
+			game->hero->px -= game->hero->pdy * MOVE_SP;
 		if (game->cmap->map[collision(game->hero->py, game->hero->pdx, FALSE)]
 			[game->hero->x] != '1')
-			game->hero->py += game->hero->pdx  * MOVE_SP;
+			game->hero->py += game->hero->pdx * MOVE_SP;
 	}
-	if(game->move->a == TRUE)
+	if (game->move->a == TRUE)
 	{
 		if (game->cmap->map[game->hero->y]
 			[collision(game->hero->px, game->hero->pdy, FALSE)]
 			!= '1')
-			game->hero->px += game->hero->pdy  *  MOVE_SP;
+			game->hero->px += game->hero->pdy * MOVE_SP;
 		if (game->cmap->map[collision(game->hero->py, game->hero->pdx, TRUE)]
 			[game->hero->x] != '1')
-			game->hero->py -= game->hero->pdx  * MOVE_SP;
+			game->hero->py -= game->hero->pdx * MOVE_SP;
 	}
+}
+
+void	move_player(t_game *game)
+{
+	move_front_back(game);
+	move_right_left(game);
 }
