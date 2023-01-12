@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:46:08 by llima-ce          #+#    #+#             */
-/*   Updated: 2023/01/10 11:40:30 by llima-ce         ###   ########.fr       */
+/*   Updated: 2023/01/12 17:20:41 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ t_game	*read_map(char **argv)
 	if (fd == -1)
 		exit(custom_error("On open map file", FD_ERR));
 	game = (t_game *)malloc(1 * sizeof(t_game));
+	game->mlx = NULL;
 	game->cmap = (t_map *)malloc(1 * sizeof(t_map));
 	init_game(game);
 	if (game == NULL || game->cmap == NULL)

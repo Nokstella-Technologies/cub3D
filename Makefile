@@ -6,7 +6,7 @@
 #    By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/22 16:11:34 by prafael-          #+#    #+#              #
-#    Updated: 2023/01/10 17:33:43 by llima-ce         ###   ########.fr        #
+#    Updated: 2023/01/11 16:45:49 by llima-ce         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ SANITIZE = -fsanitize=address -fsanitize=undefined -fno-sanitize-recover=all -fs
 all: $(NAME)
 
 $(NAME): $(T_OBJ) $(MINILIBX)
-	$(CC)  $(LIBS) $(addprefix $(DIROBJ),$(OBJ)) $(CFLAGS) -lft -lmlx_Linux -lXext -lX11 -lm -lz -o $(NAME) 
+	$(CC)  $(LIBS) $(addprefix $(DIROBJ),$(OBJ)) $(CFLAGS) -lft -lmlx_Linux -lXext -lX11 -lm -lz -o $(NAME) $(SANITIZE)
 
 $(DIROBJ):
 	mkdir -p $(DIROBJ)
