@@ -30,3 +30,9 @@ Bonus list:
 [] Doors which can open and close.
 [] animated sprite.
 [] Rotate the point of view with the mouse.
+
+Errors:
+[] Still reachble bytes when the map have empty lines with and without spaces
+[] Map not loading when there is no player, should not open and return error
+[] Test empty file
+[] Leak when sprint file incorrect

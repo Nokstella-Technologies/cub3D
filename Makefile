@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: coder <coder@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/10/22 16:11:34 by prafael-          #+#    #+#              #
-#    Updated: 2023/01/12 19:35:30 by llima-ce         ###   ########.fr        #
+#    Created: 2022/11/03 16:48:25 by llima-ce          #+#    #+#              #
+#    Updated: 2023/02/17 00:18:15 by coder            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,8 @@ BONUS_SRC	= main_bonus.c read_map_bonus.c error_bonus.c \
 
 
 LIBS		= -lft -lmlx_Linux -lXext -lX11 -lm -lz
+
+MINILIBX_DIR = ./lib/minilibx
 
 SANITIZE	= -fsanitize=address -fsanitize=undefined -fno-sanitize-recover=all -fsanitize=float-divide-by-zero -fsanitize=float-cast-overflow -fno-sanitize=null -fno-sanitize=alignment 
 
@@ -69,15 +71,20 @@ $(OBJDIR):
 $(LIBFT):
 	make others -C ./lib/libft
 
-$(MINILIBX):
+$(MINILIBX): $(MINILIBX_DIR)
 	cd ./lib/minilibx && ./configure
+	
+$(MINILIBX_DIR):
+	git clone https://github.com/42Paris/minilibx-linux.git ./lib/minilibx
 
 clean:
 	rm -rf $(OBJDIR)
 	rm -rf $(OBJ)
+	make fclean -C ./lib/libft
 
 fclean: clean
 	rm -f $(NAME) $(NAME_BONUS)
+	rm -rf $(MINILIBX_DIR)
 
 re: fclean all
 

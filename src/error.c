@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 17:01:58 by llima-ce          #+#    #+#             */
-/*   Updated: 2023/01/12 17:19:25 by llima-ce         ###   ########.fr       */
+/*   Updated: 2023/02/16 23:50:52 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,25 @@ int	close_all(t_game *game)
 	return (0);
 }
 
+static void	clean_utils(t_game *game)
+{
+	mlx_destroy_image(game->mlx, game->img->img_ptr);
+	mlx_destroy_image(game->mlx, game->sprite->ea->img_ptr);
+	mlx_destroy_image(game->mlx, game->sprite->no->img_ptr);
+	mlx_destroy_image(game->mlx, game->sprite->so->img_ptr);
+	mlx_destroy_image(game->mlx, game->sprite->we->img_ptr);
+	free_ptr((void **)&game->sprite->ea);
+	free_ptr((void **)&game->sprite->so);
+	free_ptr((void **)&game->sprite->we);
+	free_ptr((void **)&game->sprite->no);
+	free_ptr((void **)&game->move);
+	free_ptr((void **)&game->sprite);
+	mlx_destroy_window(game->mlx, game->win);
+	mlx_destroy_display(game->mlx);
+	free_ptr((void **)&game->mlx);
+	free_ptr((void **)&game);
+}
+
 void	clean_all(t_game *game, int err)
 {
 	free_ptr((void **)&game->cmap->no);
@@ -62,22 +81,6 @@ void	clean_all(t_game *game, int err)
 	free_ptr((void **)&game->cmap->map);
 	free_ptr((void **)&game->cmap);
 	if (game->mlx != NULL)
-	{
-		mlx_destroy_image(game->mlx, game->img->img_ptr);
-		mlx_destroy_image(game->mlx, game->sprite->ea->img_ptr);
-		mlx_destroy_image(game->mlx, game->sprite->no->img_ptr);
-		mlx_destroy_image(game->mlx, game->sprite->so->img_ptr);
-		mlx_destroy_image(game->mlx, game->sprite->we->img_ptr);
-		free_ptr((void **)&game->sprite->ea);
-		free_ptr((void **)&game->sprite->so);
-		free_ptr((void **)&game->sprite->we);
-		free_ptr((void **)&game->sprite->no);
-		free_ptr((void **)&game->move);
-		free_ptr((void **)&game->sprite);
-		mlx_destroy_window(game->mlx, game->win);
-		mlx_destroy_display(game->mlx);
-		free_ptr((void **)&game->mlx);
-		free_ptr((void **)&game);
-	}
+		clean_utils(game);
 	exit(err);
 }
