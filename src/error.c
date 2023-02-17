@@ -6,7 +6,7 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 17:01:58 by llima-ce          #+#    #+#             */
-/*   Updated: 2023/02/16 23:50:52 by coder            ###   ########.fr       */
+/*   Updated: 2023/02/17 23:21:50 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,22 +51,26 @@ int	close_all(t_game *game)
 }
 
 static void	clean_utils(t_game *game)
-{
+{	
 	mlx_destroy_image(game->mlx, game->img->img_ptr);
-	mlx_destroy_image(game->mlx, game->sprite->ea->img_ptr);
-	mlx_destroy_image(game->mlx, game->sprite->no->img_ptr);
-	mlx_destroy_image(game->mlx, game->sprite->so->img_ptr);
-	mlx_destroy_image(game->mlx, game->sprite->we->img_ptr);
+	if (game->sprite->ea->img_ptr != NULL)
+		mlx_destroy_image(game->mlx, game->sprite->ea->img_ptr);
+	if (game->sprite->no->img_ptr != NULL)
+		mlx_destroy_image(game->mlx, game->sprite->no->img_ptr);
+	if (game->sprite->so->img_ptr != NULL)
+		mlx_destroy_image(game->mlx, game->sprite->so->img_ptr);
+	if (game->sprite->we->img_ptr != NULL)
+		mlx_destroy_image(game->mlx, game->sprite->we->img_ptr);
 	free_ptr((void **)&game->sprite->ea);
 	free_ptr((void **)&game->sprite->so);
 	free_ptr((void **)&game->sprite->we);
 	free_ptr((void **)&game->sprite->no);
 	free_ptr((void **)&game->move);
 	free_ptr((void **)&game->sprite);
-	mlx_destroy_window(game->mlx, game->win);
+	if (game->win != NULL)
+		mlx_destroy_window(game->mlx, game->win);
 	mlx_destroy_display(game->mlx);
 	free_ptr((void **)&game->mlx);
-	free_ptr((void **)&game);
 }
 
 void	clean_all(t_game *game, int err)
@@ -82,5 +86,6 @@ void	clean_all(t_game *game, int err)
 	free_ptr((void **)&game->cmap);
 	if (game->mlx != NULL)
 		clean_utils(game);
+	free_ptr((void **)&game);
 	exit(err);
 }

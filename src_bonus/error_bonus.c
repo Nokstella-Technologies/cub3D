@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_bonus.c                                      :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 17:01:58 by llima-ce          #+#    #+#             */
-/*   Updated: 2023/01/12 19:19:59 by llima-ce         ###   ########.fr       */
+/*   Updated: 2023/02/17 23:21:50 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub_bonus.h"
+#include "cub.h"
 
 void	free_ptr(void **ptr)
 {
@@ -50,6 +50,29 @@ int	close_all(t_game *game)
 	return (0);
 }
 
+static void	clean_utils(t_game *game)
+{	
+	mlx_destroy_image(game->mlx, game->img->img_ptr);
+	if (game->sprite->ea->img_ptr != NULL)
+		mlx_destroy_image(game->mlx, game->sprite->ea->img_ptr);
+	if (game->sprite->no->img_ptr != NULL)
+		mlx_destroy_image(game->mlx, game->sprite->no->img_ptr);
+	if (game->sprite->so->img_ptr != NULL)
+		mlx_destroy_image(game->mlx, game->sprite->so->img_ptr);
+	if (game->sprite->we->img_ptr != NULL)
+		mlx_destroy_image(game->mlx, game->sprite->we->img_ptr);
+	free_ptr((void **)&game->sprite->ea);
+	free_ptr((void **)&game->sprite->so);
+	free_ptr((void **)&game->sprite->we);
+	free_ptr((void **)&game->sprite->no);
+	free_ptr((void **)&game->move);
+	free_ptr((void **)&game->sprite);
+	if (game->win != NULL)
+		mlx_destroy_window(game->mlx, game->win);
+	mlx_destroy_display(game->mlx);
+	free_ptr((void **)&game->mlx);
+}
+
 void	clean_all(t_game *game, int err)
 {
 	free_ptr((void **)&game->cmap->no);
@@ -62,22 +85,7 @@ void	clean_all(t_game *game, int err)
 	free_ptr((void **)&game->cmap->map);
 	free_ptr((void **)&game->cmap);
 	if (game->mlx != NULL)
-	{
-		mlx_destroy_image(game->mlx, game->img->img_ptr);
-		mlx_destroy_image(game->mlx, game->sprite->ea->img_ptr);
-		mlx_destroy_image(game->mlx, game->sprite->no->img_ptr);
-		mlx_destroy_image(game->mlx, game->sprite->so->img_ptr);
-		mlx_destroy_image(game->mlx, game->sprite->we->img_ptr);
-		free_ptr((void **)&game->sprite->ea);
-		free_ptr((void **)&game->sprite->so);
-		free_ptr((void **)&game->sprite->we);
-		free_ptr((void **)&game->sprite->no);
-		free_ptr((void **)&game->move);
-		free_ptr((void **)&game->sprite);
-		mlx_destroy_window(game->mlx, game->win);
-		mlx_destroy_display(game->mlx);
-		free_ptr((void **)&game->mlx);
-		free_ptr((void **)&game);
-	}
+		clean_utils(game);
+	free_ptr((void **)&game);
 	exit(err);
 }

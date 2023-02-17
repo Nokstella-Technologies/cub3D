@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   validation_map_bonus.c                             :+:      :+:    :+:   */
+/*   validation_map.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:49:28 by llima-ce          #+#    #+#             */
-/*   Updated: 2023/01/12 19:19:59 by llima-ce         ###   ########.fr       */
+/*   Updated: 2023/02/16 23:48:20 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub_bonus.h"
+#include "cub.h"
 
 static int	ft_fchstr(char to_find, char *options)
 {
 	int	a;
 
 	a = -1;
-	while(++a < (int)ft_strlen(options))
+	while (++a < (int)ft_strlen(options))
 	{
 		if (to_find == options[a])
 			return (a + 1);
@@ -25,7 +25,7 @@ static int	ft_fchstr(char to_find, char *options)
 	return (0);
 }
 
-static int verify_if_is_inside_walls(char **map, int y, int x, t_map *cmap)
+static int	verify_if_is_inside_walls(char **map, int y, int x, t_map *cmap)
 {
 	if (y <= 0 || y >= cmap->map_y || x <= 0 || x >= cmap->map_x)
 		return (INV_MAP);
@@ -35,7 +35,7 @@ static int verify_if_is_inside_walls(char **map, int y, int x, t_map *cmap)
 		|| ft_fchstr(map[y][x - 1], "01NWES") == 0
 		|| ft_fchstr(map[y][x + 1], "01NWES") == 0
 		|| ft_fchstr(map[y + 1][x - 1], "01NWES") == 0
-		|| ft_fchstr(map[y + 1][x], "01NWES") == 0 
+		|| ft_fchstr(map[y + 1][x], "01NWES") == 0
 		|| ft_fchstr(map[y + 1][x + 1], "01NWES") == 0)
 		return (INV_MAP);
 	return (0);

@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structs_bonus.h                                    :+:      :+:    :+:   */
+/*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 20:22:01 by llima-ce          #+#    #+#             */
-/*   Updated: 2023/01/12 19:15:37 by llima-ce         ###   ########.fr       */
+/*   Updated: 2023/01/09 20:24:25 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCTS_BONUS_H
-# define STRUCTS_BONUS_H
+#ifndef STRUCTS_H
+# define STRUCTS_H
 
 typedef struct s_img
 {

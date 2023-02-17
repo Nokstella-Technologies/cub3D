@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_map_bonus.c                                   :+:      :+:    :+:   */
+/*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:46:08 by llima-ce          #+#    #+#             */
-/*   Updated: 2023/01/12 19:20:00 by llima-ce         ###   ########.fr       */
+/*   Updated: 2023/02/17 23:24:47 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub_bonus.h"
+#include "cub.h"
 
 static int	add_new_line(t_map *cmap, char *line)
 {
@@ -62,8 +62,6 @@ static int	validation_loop(int fd, t_game *game)
 	err = 1;
 	while (tmp != NULL)
 	{
-		if (game->err != 0)
-			break ;
 		if (*tmp != '\n' )
 		{
 			err = verify_sprite_color(tmp, game->cmap);
@@ -74,6 +72,8 @@ static int	validation_loop(int fd, t_game *game)
 		}
 		else if (err == 0)
 			game->err = custom_error("map with empty line", INV_MAP);
+		if (game->err != 0)
+			break ;
 		free_ptr((void **)&tmp);
 		tmp = get_next_line(fd);
 	}
@@ -108,6 +108,9 @@ t_game	*read_map(char **argv)
 		exit(custom_error("On malloc map and game", MALLOC_ERR));
 	else if (validation_loop(fd, game) == 0)
 		validation_map_line(game->cmap, game);
+	if (game->err == 0 && game->cmap->hero == NULL)
+		game->err = custom_error(
+				"Wrong map configuration, something is missing!", INV_MAP);
 	if (game->err != 0)
 		close_all(game);
 	return (game);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_game.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:05:55 by llima-ce          #+#    #+#             */
-/*   Updated: 2023/01/10 17:32:42 by llima-ce         ###   ########.fr       */
+/*   Updated: 2023/02/17 23:27:09 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,8 @@ void	start_game(t_game *game)
 {
 	t_img	img;
 
+	game->win = NULL;
 	game->mlx = mlx_init();
-	game->win = mlx_new_window(game->mlx, MAP_X, MAP_Y, "Cub42D");
-	if (!game->mlx || !game->win)
-	{
-		game->err = custom_error("failed to open the screen", 520);
-		close_all(game);
-	}
 	init_sprites(game);
 	img.img_ptr = mlx_new_image(game->mlx, MAP_X, MAP_Y);
 	img.dump = mlx_get_data_addr(img.img_ptr, &img.bpp, &img.size_l,
@@ -78,5 +73,11 @@ void	start_game(t_game *game)
 	game->hero = game->cmap->hero;
 	if (game->err != 0)
 		close_all(game);
+	game->win = mlx_new_window(game->mlx, MAP_X, MAP_Y, "Cub42D");
+	if (!game->mlx || !game->win)
+	{
+		game->err = custom_error("failed to open the screen", 520);
+		close_all(game);
+	}
 	loop(game);
 }

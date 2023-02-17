@@ -6,7 +6,7 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:46:08 by llima-ce          #+#    #+#             */
-/*   Updated: 2023/02/16 23:56:13 by coder            ###   ########.fr       */
+/*   Updated: 2023/02/17 23:24:47 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,9 @@ t_game	*read_map(char **argv)
 		exit(custom_error("On malloc map and game", MALLOC_ERR));
 	else if (validation_loop(fd, game) == 0)
 		validation_map_line(game->cmap, game);
+	if (game->err == 0 && game->cmap->hero == NULL)
+		game->err = custom_error(
+				"Wrong map configuration, something is missing!", INV_MAP);
 	if (game->err != 0)
 		close_all(game);
 	return (game);

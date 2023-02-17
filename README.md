@@ -32,7 +32,7 @@ Bonus list:
 [] Rotate the point of view with the mouse.
 
 Errors:
-[] Still reachble bytes when the map have empty lines with and without spaces
-[] Map not loading when there is no player, should not open and return error
-[] Test empty file
-[] Leak when sprint file incorrect
+[x] Still reachble bytes when the map have empty lines with and without spaces
+[x] Map not loading when there is no player, should not open and return error
+[x] Test empty file
+[x] Leak when sprite file incorrect

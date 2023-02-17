@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_formats_bonus.c                               :+:      :+:    :+:   */
+/*   draw_formats.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 02:01:40 by llima-ce          #+#    #+#             */
-/*   Updated: 2023/01/12 19:20:00 by llima-ce         ###   ########.fr       */
+/*   Updated: 2023/01/10 11:33:23 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub_bonus.h"
+#include "cub.h"
 
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 {
