@@ -6,12 +6,12 @@
 #    By: coder <coder@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/03 16:48:25 by llima-ce          #+#    #+#              #
-#    Updated: 2023/02/17 00:18:15 by coder            ###   ########.fr        #
+#    Updated: 2023/02/18 01:36:06 by coder            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = cub3d
-NAME_BONUS = cub3d_bonus
+NAME = cub3D
+NAME_BONUS = cub3D_bonus
 
 CFLAGS = -Wall -Wextra -Werror -g3
 

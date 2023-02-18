@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub.h                                              :+:      :+:    :+:   */
+/*   cub_bonus.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: vantonie <vantonie@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 17:22:02 by llima-ce          #+#    #+#             */
-/*   Updated: 2023/01/10 17:33:15 by llima-ce         ###   ########.fr       */
+/*   Updated: 2023/02/17 19:50:02 by vantonie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB_H
-# define CUB_H
+#ifndef CUB_BONUS_H
+# define CUB_BONUS_H
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -22,7 +22,7 @@
 # include "libft.h"
 # include "mlx.h"
 # include "structs.h"
-# include "defines.h"
+# include "defines_bonus.h"
 
 t_game	*read_map(char **argv);
 int		custom_error(char *error, int err);

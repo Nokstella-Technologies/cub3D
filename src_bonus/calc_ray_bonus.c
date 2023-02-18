@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   calc_ray.c                                         :+:      :+:    :+:   */
+/*   calc_ray_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: vantonie <vantonie@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 11:15:10 by llima-ce          #+#    #+#             */
-/*   Updated: 2023/01/10 17:43:10 by llima-ce         ###   ########.fr       */
+/*   Updated: 2023/02/17 19:50:21 by vantonie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "cub_bonus.h"
 
 void	horizontal_ray_check(t_game *game, t_ray *ray)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   print_minimap_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: vantonie <vantonie@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 15:42:43 by llima-ce          #+#    #+#             */
-/*   Updated: 2023/01/10 11:39:18 by llima-ce         ###   ########.fr       */
+/*   Updated: 2023/02/17 19:50:32 by vantonie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "cub_bonus.h"
 
 void	draw_mini_map(t_game *game, int a, int b, int y)
 {
