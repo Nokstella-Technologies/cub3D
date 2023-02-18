@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:51:21 by llima-ce          #+#    #+#             */
-/*   Updated: 2023/01/10 17:43:40 by llima-ce         ###   ########.fr       */
+/*   Updated: 2023/02/18 20:58:31 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,37 +66,34 @@ void	draw_wall(t_game *game, t_ray *ray, t_ray_print *draws)
 	}
 }
 
-void	player_view(t_game *game)
+void	player_view(t_game *game, t_ray_print *draws, t_ray *ray)
 {
-	t_ray_print	draws;
-	t_ray		ray;
-
-	ray.ra = fix_ang(game->hero->pa + 35);
-	ray.xo = 0;
-	ray.yo = 0;
-	ray.r = -1;
-	while (++ray.r < 800)
+	ray->ra = fix_ang(game->hero->pa + 35);
+	ray->xo = 0;
+	ray->yo = 0;
+	ray->r = -1;
+	while (++ray->r < 800)
 	{
-		ray.dof = 0;
-		ray.dis_v = 100000;
-		ray.tan = tan(deg_to_rad(ray.ra));
-		horizontal_ray_check(game, &ray);
-		horizontal_ray_dist(game, &ray);
-		ray.dof = 0;
-		ray.dis_h = 100000;
-		ray.tan = 1.0 / ray.tan;
-		vertical_ray_check(game, &ray);
-		vertical_ray_dist(game, &ray);
-		calculate_ray_wall_height(game, &ray, &draws);
-		draw_floor_celing(game, &ray, &draws);
-		draw_wall(game, &ray, &draws);
-		ray.ra = fix_ang(ray.ra - 0.0875);
+		ray->dof = 0;
+		ray->dis_v = 100000;
+		ray->tan = tan(deg_to_rad(ray->ra));
+		horizontal_ray_check(game, ray);
+		horizontal_ray_dist(game, ray);
+		ray->dof = 0;
+		ray->dis_h = 100000;
+		ray->tan = 1.0 / ray->tan;
+		vertical_ray_check(game, ray);
+		vertical_ray_dist(game, ray);
+		calculate_ray_wall_height(game, ray, draws);
+		draw_floor_celing(game, ray, draws);
+		draw_wall(game, ray, draws);
+		ray->ra = fix_ang(ray->ra - 0.0875);
 	}
 }
 
 int	print_mini_map(t_game *game)
 {
-	player_view(game);
+	player_view(game, &game->draws, &game->ray);
 	draw_mini_map(game, 10, 10, 10);
 	mlx_put_image_to_window(game->mlx, game->win, game->img->img_ptr, 0, 0);
 	move_player(game);

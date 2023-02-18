@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   calc_ray_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vantonie <vantonie@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 11:15:10 by llima-ce          #+#    #+#             */
-/*   Updated: 2023/02/17 19:50:21 by vantonie         ###   ########.fr       */
+/*   Updated: 2023/02/18 21:22:08 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ void	horizontal_ray_dist(t_game *game, t_ray *ray)
 		ray->my = (int)(ray->vy) >> 6;
 		ray->mp = ray->my * game->cmap->map_x + ray->mx;
 		if (ray->mp > 0 && ray->my >= 0 && ray->my < game->cmap->map_y
-			&& ray->mx >= 0 && ray->mx < game->cmap->map_x
+			&& ray->mx >= 0 && ray->mx
+			< (int)ft_strlen(game->cmap->map[ray->my])
 			&& game->cmap->map[ray->my][ray->mx] == '1')
 		{
 			ray->dof = game->cmap->map_x;
@@ -96,7 +97,8 @@ void	vertical_ray_dist(t_game *game, t_ray *ray)
 		ray->my = (int)(ray->ry) >> 6;
 		ray->mp = ray->my * game->cmap->map_x + ray->mx;
 		if (ray->mp > 0 && ray->my >= 0 && ray->my < game->cmap->map_y
-			&& ray->mx >= 0 && ray->mx < game->cmap->map_x
+			&& ray->mx >= 0 && ray->mx
+			< (int)ft_strlen(game->cmap->map[ray->my])
 			&& game->cmap->map[ray->my][ray->mx] == '1')
 		{
 			ray->dof = game->cmap->map_y;

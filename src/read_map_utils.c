@@ -6,7 +6,7 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 11:06:21 by llima-ce          #+#    #+#             */
-/*   Updated: 2023/02/18 04:54:29 by coder            ###   ########.fr       */
+/*   Updated: 2023/02/18 21:18:03 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	sprites(char *line, char **map)
 	{
 		free_ptr((void **)&line);
 		return (REPEAT_ATR);
-		}
+	}
 	tmp = ft_strtrim(line, " \n");
 	free_ptr((void **)&line);
 	*map = tmp;
@@ -35,9 +35,9 @@ static char	**split_colors(char *tmp)
 	a = -1;
 	t_rgb = ft_split(tmp, ',');
 	free_ptr((void **)&tmp);
-	while(++a < 3)
+	while (++a < 3)
 	{
-		tmp = ft_strtrim(t_rgb[a]," ");
+		tmp = ft_strtrim(t_rgb[a], " ");
 		free_ptr((void **)&t_rgb[a]);
 		t_rgb[a] = tmp;
 	}
@@ -48,7 +48,7 @@ static int	colors(char *line, int rgb[3])
 {
 	char	*tmp;
 	char	**t_rgb;
-	
+
 	if (rgb[0] != -1 || rgb[1] != -1 || rgb[2] != -1)
 	{
 		free_ptr((void **)&line);
@@ -57,7 +57,8 @@ static int	colors(char *line, int rgb[3])
 	tmp = ft_strtrim(line, " ");
 	free_ptr((void **)&line);
 	t_rgb = split_colors(tmp);
-	if (t_rgb[0] == NULL || t_rgb[1] == NULL || t_rgb[2] == NULL || t_rgb[3] != NULL)
+	if (t_rgb[0] == NULL || t_rgb[1] == NULL
+		|| t_rgb[2] == NULL || t_rgb[3] != NULL)
 		return (INV_COLOR);
 	rgb[0] = ft_atoi(t_rgb[0]);
 	rgb[1] = ft_atoi(t_rgb[1]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 20:22:01 by llima-ce          #+#    #+#             */
-/*   Updated: 2023/01/09 20:24:25 by llima-ce         ###   ########.fr       */
+/*   Updated: 2023/02/18 21:15:50 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,17 +64,6 @@ typedef struct s_move {
 	t_bool	rot_l;
 }			t_move;
 
-typedef struct s_game {
-	t_img		*img;
-	void		*mlx;
-	void		*win;
-	t_sprite	*sprite;
-	t_map		*cmap;
-	t_hero		*hero;
-	t_move		*move;
-	int			err;
-}			t_game;
-
 typedef struct s_ray {
 	int		r;
 	int		mx;
@@ -106,4 +95,17 @@ typedef struct s_ray_print{
 	float	ty_off;
 	float	shade;
 }			t_ray_print;
+
+typedef struct s_game {
+	t_img		*img;
+	void		*mlx;
+	void		*win;
+	t_sprite	*sprite;
+	t_map		*cmap;
+	t_hero		*hero;
+	t_move		*move;
+	t_ray_print	draws;
+	t_ray		ray;
+	int			err;
+}			t_game;
 #endif
